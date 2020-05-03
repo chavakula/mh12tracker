@@ -1,0 +1,8 @@
+{
+  "baseApiUrl": "/data/",
+  "metajson": "meta-details.json",
+  "newsjson": "news.json",
+  "summaryjson": "summary.json",
+  "wardjson": "ward-all-cases.json",
+  "summarygraphs": "district-summary.json"
+}
