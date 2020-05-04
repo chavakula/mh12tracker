@@ -114,19 +114,30 @@
        <thead>
          <tr>
            <th>#</th>
-           <th>Area</th>
+           <th width="90%">Area</th>
            <th>Cases</th>
+           <th></th>
          </tr>
        </thead>
        <tbody *ngIf="wardWiseCases.length > 0">
          <tr *ngFor="let ward of wardWiseCases; let i = index">
            <th scope="row">{{i+1}}</th>
            <td>{{ward.Name}}</td>
-           <td>{{ward.TotalConfirmed}}</td>
+           <td style="text-align:right">
+                {{ward.TotalConfirmed}}
+           </td>
+           <td style="text-align:left">
+             <span *ngIf="ward.WardCases[0].Confirmed >0" class="confirm">
+                {{ward.WardCases[0].Confirmed}}<svg style="position:absolute" class="bi bi-arrow-up-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 5.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V6a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+                    <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 01.708 0l3 3a.5.5 0 01-.708.708L8 5.707 5.354 8.354a.5.5 0 11-.708-.708l3-3z" clip-rule="evenodd"/>
+                </svg>
+             </span>
+           </td>
          </tr>
        </tbody>
        <tbody *ngIf="wardWiseCases.length == 0 || wardWiseCases==null">
-         <tr><td colspan="3" class="text-center">Data Not Available at this point of time</td></tr>
+         <tr><td colspan="4" class="text-center">Data Not Available at this point of time</td></tr>
        </tbody>
     </table>
  </div>
