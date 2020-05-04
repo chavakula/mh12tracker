@@ -3,142 +3,239 @@
    <div>&nbsp;</div>
    <div class="card">
       <div class="container">
-        <div class="row" *ngIf="!summaryLoading">
-          <div class="col" style="position:relative;padding:0px">
-              <div class="canimate confirm text-center">
-                <h5>Confirmed</h5>
-                {{summaryDetails.DeltaConfirmed || '-' }}
-                <svg *ngIf="summaryDetails.DeltaConfirmed>0" style="position:absolute" class="bi bi-arrow-up-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 5.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V6a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
-                    <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 01.708 0l3 3a.5.5 0 01-.708.708L8 5.707 5.354 8.354a.5.5 0 11-.708-.708l3-3z" clip-rule="evenodd"/>
-                </svg>
-                <svg *ngIf="summaryDetails.DeltaConfirmed<0" class="bi bi-arrow-down-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M4.646 7.646a.5.5 0 01.708 0L8 10.293l2.646-2.647a.5.5 0 01.708.708l-3 3a.5.5 0 01-.708 0l-3-3a.5.5 0 010-.708z" clip-rule="evenodd"/>
-                  <path fill-rule="evenodd" d="M8 4.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
-                </svg>
-                <h4>{{summaryDetails.DistrictCases[0].Confirmed || 'NA'}}</h4>
-                <div>&nbsp;</div>
-                <div style="position:relative; width:80px;margin:auto;"><canvas id="confirm">{{ confirmChart }}</canvas></div>
-              </div>
-          </div>
-
-          <div class="col" style="position:relative;padding:0px">
-              <div class="canimate active text-center">
-                <h5>Active</h5>
-                {{summaryDetails.DeltaActive || '-' }}
-                <svg *ngIf="summaryDetails.DeltaActive>0" style="position:absolute" class="bi bi-arrow-up-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 5.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V6a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
-                    <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 01.708 0l3 3a.5.5 0 01-.708.708L8 5.707 5.354 8.354a.5.5 0 11-.708-.708l3-3z" clip-rule="evenodd"/>
-                </svg>
-                <svg *ngIf="summaryDetails.DeltaActive<0" class="bi bi-arrow-down-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M4.646 7.646a.5.5 0 01.708 0L8 10.293l2.646-2.647a.5.5 0 01.708.708l-3 3a.5.5 0 01-.708 0l-3-3a.5.5 0 010-.708z" clip-rule="evenodd"/>
-                  <path fill-rule="evenodd" d="M8 4.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
-                </svg>
-                <h4>{{summaryDetails.DistrictCases[0].Active || 'NA'}}</h4>
-                <div>&nbsp;</div>
-                <div style="position:relative; width:80px;margin:auto;"><canvas id="active">{{ activeChart }}</canvas></div>
-              </div>
-          </div>
-
-          <div class="col" style="position:relative;padding:0px" >
-              <div class="canimate recovered text-center">
-                <h5>Recovered</h5>
-                {{summaryDetails.DeltaRecovered || '-' }}
-                <svg *ngIf="summaryDetails.DeltaRecovered>0" style="position:absolute" class="bi bi-arrow-up-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 5.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V6a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
-                    <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 01.708 0l3 3a.5.5 0 01-.708.708L8 5.707 5.354 8.354a.5.5 0 11-.708-.708l3-3z" clip-rule="evenodd"/>
-                </svg>
-                <svg *ngIf="summaryDetails.DeltaRecovered<0" class="bi bi-arrow-down-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M4.646 7.646a.5.5 0 01.708 0L8 10.293l2.646-2.647a.5.5 0 01.708.708l-3 3a.5.5 0 01-.708 0l-3-3a.5.5 0 010-.708z" clip-rule="evenodd"/>
-                  <path fill-rule="evenodd" d="M8 4.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
-                </svg>
-                <h4>{{summaryDetails.DistrictCases[0].Recovered || 'NA'}}</h4>
-                <div>&nbsp;</div>
-                <div class="text-center" style="position:relative; width:80px;margin:auto;"><canvas id="recover">{{ recoverChart }}</canvas></div>
-              </div>
-          </div>
-          <div class="col" style="position:relative;padding:0px">
-              <div class="canimate deaths text-center">
-                <h5>Deaths</h5>
-                {{summaryDetails.DeltaDeath || '-' }}
-                <svg *ngIf="summaryDetails.DeltaDeath>0" style="position:absolute" class="bi bi-arrow-up-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 5.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V6a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
-                    <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 01.708 0l3 3a.5.5 0 01-.708.708L8 5.707 5.354 8.354a.5.5 0 11-.708-.708l3-3z" clip-rule="evenodd"/>
-                </svg>
-                <h4>{{summaryDetails.DistrictCases[0].Death || 'NA'}}</h4>
-                <div>&nbsp;</div>
-                <div style="position:relative; width:80px;margin:auto;"><canvas  id="death">{{ deathChart }}</canvas></div>
-              </div>
-          </div>
-        </div>
         <div class="row">
-          <div class="col">
-            <div class="text-center">
-              <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed"
-                      [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
-                      <svg class="bi bi-bell" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M8 16a2 2 0 002-2H6a2 2 0 002 2z"/>
-                      <path fill-rule="evenodd" d="M8 1.918l-.797.161A4.002 4.002 0 004 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 00-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 111.99 0A5.002 5.002 0 0113 6c0 .88.32 4.2 1.22 6z" clip-rule="evenodd"/>
-                    </svg> News
-              </button>
+
+          <!--summary section starts-->
+          <div class="card bg-light mb-12" style="width:100%">
+            <div class="card-header">
+              <svg class="bi bi-info-circle" width="1.4em" height="1.4em" viewBox="0 0 18 18" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                 <path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+                 <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+                 <circle cx="8" cy="4.5" r="1"/>
+              </svg> &nbsp;Source: PMC Care & Smart Pune official health bulletin.
             </div>
-            <div id="collapseExample" [ngbCollapse]="isCollapsed">
-              <div *ngIf = "!newsLoading" class="card canimate">
-                <div class="card-body">
-                  <p *ngFor="let news of newsArticles; let i = index">
-                    <ngb-alert>
-                       <b>{{news.Date | timeAgo}}</b><br>
-                       {{news.Summary}} <br>
-                       <div class="text-right">[ <a rel="noreferrer" href="{{news.Source}}" target="_blank" aria-label="mh12.org home">source</a> ]</div>
-                    </ngb-alert>
-                  </p>
+            <div class="card-body">
+               <div class="container">
+                 <div class="row">
+                   <div class="col" style="position:relative;padding:0px">
+                       <div class="canimate confirm text-center">
+                         <h5>Confirmed</h5>
+                         {{summaryDetails.DeltaConfirmed || '-' }}
+                         <svg *ngIf="summaryDetails.DeltaConfirmed>0" style="position:absolute" class="bi bi-arrow-up-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                             <path fill-rule="evenodd" d="M8 5.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V6a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+                             <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 01.708 0l3 3a.5.5 0 01-.708.708L8 5.707 5.354 8.354a.5.5 0 11-.708-.708l3-3z" clip-rule="evenodd"/>
+                         </svg>
+                         <svg *ngIf="summaryDetails.DeltaConfirmed<0" class="bi bi-arrow-down-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                           <path fill-rule="evenodd" d="M4.646 7.646a.5.5 0 01.708 0L8 10.293l2.646-2.647a.5.5 0 01.708.708l-3 3a.5.5 0 01-.708 0l-3-3a.5.5 0 010-.708z" clip-rule="evenodd"/>
+                           <path fill-rule="evenodd" d="M8 4.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+                         </svg>
+                         <h4 *ngIf="!summaryLoading">{{summaryDetails.DistrictCases[0].Confirmed || 'NA'}}</h4>
+                         <div>&nbsp;</div>
+                         <div [hidden]="graphLoading" style="position:relative; width:80px;margin:auto;"><canvas id="confirm">{{ confirmChart }}</canvas></div>
+                       </div>
+                   </div>
+
+                   <div class="col" style="position:relative;padding:0px">
+                       <div class="canimate active text-center">
+                         <h5>Active</h5>
+                         {{summaryDetails.DeltaActive || '-' }}
+                         <svg *ngIf="summaryDetails.DeltaActive>0" style="position:absolute" class="bi bi-arrow-up-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                             <path fill-rule="evenodd" d="M8 5.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V6a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+                             <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 01.708 0l3 3a.5.5 0 01-.708.708L8 5.707 5.354 8.354a.5.5 0 11-.708-.708l3-3z" clip-rule="evenodd"/>
+                         </svg>
+                         <svg *ngIf="summaryDetails.DeltaActive<0" class="bi bi-arrow-down-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                           <path fill-rule="evenodd" d="M4.646 7.646a.5.5 0 01.708 0L8 10.293l2.646-2.647a.5.5 0 01.708.708l-3 3a.5.5 0 01-.708 0l-3-3a.5.5 0 010-.708z" clip-rule="evenodd"/>
+                           <path fill-rule="evenodd" d="M8 4.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+                         </svg>
+                         <h4 *ngIf="!summaryLoading">{{summaryDetails.DistrictCases[0].Active || 'NA'}}</h4>
+                         <div>&nbsp;</div>
+                         <div [hidden]="graphLoading" style="position:relative; width:80px;margin:auto;"><canvas id="active">{{ activeChart }}</canvas></div>
+                       </div>
+                   </div>
+
+                   <div class="col" style="position:relative;padding:0px" >
+                       <div class="canimate recovered text-center">
+                         <h5>Recovered</h5>
+                         {{summaryDetails.DeltaRecovered || '-' }}
+                         <svg *ngIf="summaryDetails.DeltaRecovered>0" style="position:absolute" class="bi bi-arrow-up-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                             <path fill-rule="evenodd" d="M8 5.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V6a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+                             <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 01.708 0l3 3a.5.5 0 01-.708.708L8 5.707 5.354 8.354a.5.5 0 11-.708-.708l3-3z" clip-rule="evenodd"/>
+                         </svg>
+                         <svg *ngIf="summaryDetails.DeltaRecovered<0" class="bi bi-arrow-down-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                           <path fill-rule="evenodd" d="M4.646 7.646a.5.5 0 01.708 0L8 10.293l2.646-2.647a.5.5 0 01.708.708l-3 3a.5.5 0 01-.708 0l-3-3a.5.5 0 010-.708z" clip-rule="evenodd"/>
+                           <path fill-rule="evenodd" d="M8 4.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+                         </svg>
+                         <h4 *ngIf="!summaryLoading">{{summaryDetails.DistrictCases[0].Recovered || 'NA'}}</h4>
+                         <div>&nbsp;</div>
+                         <div [hidden]="graphLoading" class="text-center" style="position:relative; width:80px;margin:auto;"><canvas id="recover">{{ recoverChart }}</canvas></div>
+                       </div>
+                   </div>
+                   <div class="col" style="position:relative;padding:0px">
+                       <div class="canimate deaths text-center">
+                         <h5>Deaths</h5>
+                         {{summaryDetails.DeltaDeath || '-' }}
+                         <svg *ngIf="summaryDetails.DeltaDeath>0" style="position:absolute" class="bi bi-arrow-up-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                             <path fill-rule="evenodd" d="M8 5.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V6a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+                             <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 01.708 0l3 3a.5.5 0 01-.708.708L8 5.707 5.354 8.354a.5.5 0 11-.708-.708l3-3z" clip-rule="evenodd"/>
+                         </svg>
+                         <h4 *ngIf="!summaryLoading">{{summaryDetails.DistrictCases[0].Death || 'NA'}}</h4>
+                         <div>&nbsp;</div>
+                         <div [hidden]="graphLoading" style="position:relative; width:80px;margin:auto;"><canvas  id="death">{{ deathChart }}</canvas></div>
+                       </div>
+                   </div>
+                 </div>
+               </div>
+            </div>
+          </div>
+          <!--summary section ends-->
+
+        </div>
+
+        <div class="row">
+          <div>&nbsp;</div>
+          <div class="card bg-light mb-3" style="width:100%;">
+            <div class="card-header">
+              <svg class="bi bi-info-circle" width="1.4em" height="1.4em" viewBox="0 0 18 18" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                 <path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+                 <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+                 <circle cx="8" cy="4.5" r="1"/>
+              </svg> Testing & Patients summary
+            </div>
+            <div class="card-body">
+              <div class="container">
+                <div class="row">
+                  <div class="col" style="position:relative;padding:0px">
+                      <div class="canimate deaths text-center">
+                        <h5>Total Tests</h5>
+                        106
+                        <svg style="position:absolute" class="bi bi-arrow-up-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 5.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V6a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+                            <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 01.708 0l3 3a.5.5 0 01-.708.708L8 5.707 5.354 8.354a.5.5 0 11-.708-.708l3-3z" clip-rule="evenodd"/>
+                        </svg>
+                        <h4>10859</h4>
+                        <div>&nbsp;</div>
+                      </div>
+                  </div>
+
+                  <div class="col" style="position:relative;padding:0px">
+                      <div class="canimate text-center">
+                        <h5>IN Quarantine</h5>
+                        222
+                        <svg class="bi bi-arrow-down-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" d="M4.646 7.646a.5.5 0 01.708 0L8 10.293l2.646-2.647a.5.5 0 01.708.708l-3 3a.5.5 0 01-.708 0l-3-3a.5.5 0 010-.708z" clip-rule="evenodd"/>
+                          <path fill-rule="evenodd" d="M8 4.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+                        </svg>
+                        <h4>9395</h4>
+                        <div>&nbsp;</div>
+                      </div>
+                  </div>
+
+                  <div class="col" style="position:relative;padding:0px">
+                      <div class="canimate icu text-center">
+                        <h5>IN ICU</h5>
+                        2
+                        <svg class="bi bi-arrow-down-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" d="M4.646 7.646a.5.5 0 01.708 0L8 10.293l2.646-2.647a.5.5 0 01.708.708l-3 3a.5.5 0 01-.708 0l-3-3a.5.5 0 010-.708z" clip-rule="evenodd"/>
+                          <path fill-rule="evenodd" d="M8 4.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+                        </svg>
+                        <h4>56</h4>
+                        <div>&nbsp;</div>
+                      </div>
+                  </div>
+
+                  <div class="col" style="position:relative;padding:0px">
+                      <div class="canimate confirm text-center">
+                        <h5>ON Ventilator</h5>
+                        3
+                        <svg style="position:absolute" class="bi bi-arrow-up-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 5.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V6a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+                            <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 01.708 0l3 3a.5.5 0 01-.708.708L8 5.707 5.354 8.354a.5.5 0 11-.708-.708l3-3z" clip-rule="evenodd"/>
+                        </svg>
+                        <h4>20</h4>
+                        <div>&nbsp;</div>
+                      </div>
+                  </div>
+
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        <div class="row">
+          <div>&nbsp;</div>
+
+          <!-- Area wise section starts -->
+          <div class="card bg-light mb-12" style="width:100%">
+            <div class="card-header">
+              <svg class="bi bi-info-circle" width="1.4em" height="1.4em" viewBox="0 0 18 18" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                 <path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+                 <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+                 <circle cx="8" cy="4.5" r="1"/>
+              </svg> Areawise cases includes recovery & deaths.
+            </div>
+            <div class="card-body">
+              <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th width="90%">Area</th>
+                      <th>Cases</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody *ngIf="wardWiseCases.length > 0">
+                    <tr *ngFor="let ward of wardWiseCases; let i = index">
+                      <th scope="row">{{i+1}}</th>
+                      <td>{{ward.Name}}</td>
+                      <td style="text-align:right">
+                           {{ward.TotalConfirmed}}
+                      </td>
+                      <td style="text-align:left">
+                        <span *ngIf="ward.WardCases[0].Confirmed >0" class="confirm">
+                           {{ward.WardCases[0].Confirmed}}<svg style="position:absolute" class="bi bi-arrow-up-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                               <path fill-rule="evenodd" d="M8 5.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V6a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+                               <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 01.708 0l3 3a.5.5 0 01-.708.708L8 5.707 5.354 8.354a.5.5 0 11-.708-.708l3-3z" clip-rule="evenodd"/>
+                           </svg>
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tbody *ngIf="wardWiseCases.length == 0 || wardWiseCases==null">
+                    <tr><td colspan="4" class="text-center">Data Not Available at this point of time</td></tr>
+                  </tbody>
+               </table>
+            </div>
+          </div>
+          <!-- Area wise section ends -->
+
+        </div>
+
       </div>
    </div>
  </div>
  <div class="col-md-6 canimate">
-   <div>&nbsp;</div>
-   <div>
-     <svg class="bi bi-info-circle" width="1.2em" height="1.2em" viewBox="0 0 18 18" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
-        <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
-        <circle cx="8" cy="4.5" r="1"/>
-     </svg> Areawise cases shown below are covid19 postive cases including recovery & deaths.
+   <div class="text-center">
+     <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed"
+             [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+             <svg class="bi bi-bell" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+             <path d="M8 16a2 2 0 002-2H6a2 2 0 002 2z"/>
+             <path fill-rule="evenodd" d="M8 1.918l-.797.161A4.002 4.002 0 004 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 00-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 111.99 0A5.002 5.002 0 0113 6c0 .88.32 4.2 1.22 6z" clip-rule="evenodd"/>
+           </svg> News
+     </button>
    </div>
-   <div>&nbsp;</div>
-   <table class="table table-striped">
-       <thead>
-         <tr>
-           <th>#</th>
-           <th width="90%">Area</th>
-           <th>Cases</th>
-           <th></th>
-         </tr>
-       </thead>
-       <tbody *ngIf="wardWiseCases.length > 0">
-         <tr *ngFor="let ward of wardWiseCases; let i = index">
-           <th scope="row">{{i+1}}</th>
-           <td>{{ward.Name}}</td>
-           <td style="text-align:right">
-                {{ward.TotalConfirmed}}
-           </td>
-           <td style="text-align:left">
-             <span *ngIf="ward.WardCases[0].Confirmed >0" class="confirm">
-                {{ward.WardCases[0].Confirmed}}<svg style="position:absolute" class="bi bi-arrow-up-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 5.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V6a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
-                    <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 01.708 0l3 3a.5.5 0 01-.708.708L8 5.707 5.354 8.354a.5.5 0 11-.708-.708l3-3z" clip-rule="evenodd"/>
-                </svg>
-             </span>
-           </td>
-         </tr>
-       </tbody>
-       <tbody *ngIf="wardWiseCases.length == 0 || wardWiseCases==null">
-         <tr><td colspan="4" class="text-center">Data Not Available at this point of time</td></tr>
-       </tbody>
-    </table>
+   <div id="collapseExample" [ngbCollapse]="isCollapsed">
+     <div *ngIf = "!newsLoading" class="card canimate">
+       <div class="card-body">
+         <p *ngFor="let news of newsArticles; let i = index">
+           <ngb-alert>
+              <b>{{news.Date | timeAgo}}</b><br>
+              {{news.Summary}} <br>
+              <div class="text-right">[ <a rel="noreferrer" href="{{news.Source}}" target="_blank" aria-label="mh12.org home">source</a> ]</div>
+           </ngb-alert>
+         </p>
+       </div>
+     </div>
+   </div>
  </div>
 </div>

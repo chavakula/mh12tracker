@@ -32,6 +32,8 @@ export class TrackerComponent implements OnInit {
   wardWiseCases: any = {};
   wardWiseLoading: Boolean = true;
 
+  graphLoading: Boolean = true;
+
   constructor(private dataservice: TrackerService) { }
 
   // Init all Charts & fetch Data
@@ -57,7 +59,9 @@ export class TrackerComponent implements OnInit {
 
     // get data for graph
     this.dataservice.getSummaryTimeseries().subscribe(data=>{
+      //setTimeout(function(){ console.log("log"); }, 3000);
       // populate timeseries data for active,death,confirm,recovered
+
       data.forEach(row => {
           this.labels.push(row.Date);
           this.confirmData.push(row.Confirmed);
@@ -185,6 +189,7 @@ export class TrackerComponent implements OnInit {
             }
           }
       });
+      this.graphLoading = false;
     });
   }
   // end of init function

@@ -9,12 +9,14 @@ import * as appGlobals from '../globals';
 })
 export class TrackerService {
 
+  dt: Date =  new Date();
+  epoch: Number =  this.dt.getTime();
   baseApiUrl = appGlobals.SETTINGS.baseApiUrl;
-  metaApiUrl: string = appGlobals.SETTINGS.metaApiUrl;
-  newsApiUrl: string = appGlobals.SETTINGS.newsApiUrl;
-  summaryApiUrl: string = appGlobals.SETTINGS.summaryApiUrl;
-  wardWiseApiUrl: string = appGlobals.SETTINGS.wardWiseApiUrl;
-  summaryTimeseriesApiUrl: string = appGlobals.SETTINGS.summaryTimeseriesApiUrl;
+  metaApiUrl: string = appGlobals.SETTINGS.metaApiUrl+"?v="+this.epoch;
+  newsApiUrl: string = appGlobals.SETTINGS.newsApiUrl+"?v="+this.epoch;
+  summaryApiUrl: string = appGlobals.SETTINGS.summaryApiUrl+"?v="+this.epoch;
+  wardWiseApiUrl: string = appGlobals.SETTINGS.wardWiseApiUrl+"?v="+this.epoch;
+  summaryTimeseriesApiUrl: string = appGlobals.SETTINGS.summaryTimeseriesApiUrl+"?v="+this.epoch;
 
   constructor(private httpClient: HttpClient) { }
 
