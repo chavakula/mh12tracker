@@ -17,8 +17,28 @@ export class TrackerService {
   summaryApiUrl: string = appGlobals.SETTINGS.summaryApiUrl+"?v="+this.epoch;
   wardWiseApiUrl: string = appGlobals.SETTINGS.wardWiseApiUrl+"?v="+this.epoch;
   summaryTimeseriesApiUrl: string = appGlobals.SETTINGS.summaryTimeseriesApiUrl+"?v="+this.epoch;
+  zoneApi: string = appGlobals.SETTINGS.zoneApiUrl;
+  patientSummaryApiUrl: string = appGlobals.SETTINGS.patientSummary+"?v="+this.epoch;
+
+  const;
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+  };
 
   constructor(private httpClient: HttpClient) { }
+
+  /**
+   * Get Meta Details
+  **/
+ getPuneMetaData(): Observable<any>{
+  let API_URL = "/assets/pune-meta-info.json";
+  return this.httpClient.get(API_URL)
+    .pipe(
+      catchError(this.error)
+    )
+}
 
   /**
    * Get Meta Details
@@ -76,6 +96,33 @@ export class TrackerService {
         catchError(this.error)
       )
   }
+
+  /**
+   * get containment zone status GeoIQ api
+   */
+
+   getZoneStatus(lats: any): Observable<any>{
+     const body = { latlngs: [lats], key: appGlobals.SETTINGS.apiKey};
+     let API_URL = `${this.zoneApi}`;
+     return this.httpClient.post(API_URL,body,this.httpOptions)
+     .pipe(
+       catchError(this.error)
+     );
+   }
+
+   /**
+   * Get patient summary
+  */
+
+  getSummaryPatients(): Observable<any>{
+    let API_URL = `${this.baseApiUrl}${this.patientSummaryApiUrl}`;
+    return this.httpClient.get(API_URL)
+      .pipe(
+        catchError(this.error)
+      )
+  }
+
+
 
 
   // Handle Errors

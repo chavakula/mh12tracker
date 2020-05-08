@@ -23,6 +23,8 @@ export class AppConfigService {
                 appGlobals.SETTINGS.summaryApiUrl = data["summaryjson"];
                 appGlobals.SETTINGS.wardWiseApiUrl = data["wardjson"];
                 appGlobals.SETTINGS.summaryTimeseriesApiUrl = data["summarygraphs"];
+                appGlobals.SETTINGS.zoneApiUrl = data["zoneApiUrl"];
+                appGlobals.SETTINGS.apiKey = data["apiKey"];
             });
     }
 

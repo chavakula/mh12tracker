@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chart from 'chart.js';
 import { TrackerService } from '../../shared/tracker.service';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-tracker',
@@ -10,9 +11,17 @@ import { TrackerService } from '../../shared/tracker.service';
 export class TrackerComponent implements OnInit {
 
   public isCollapsed = false;
+  puneMetaData = [];
   confirmChart = [];
   confirmData = [];
   labels = [];
+  zoneMessage = "";
+  zoneType = "";
+  zoneDistrict = "";
+  zoneClass = "";
+  zoneTitleMessage = "";
+  districtInfoLoading: Boolean = true;
+  controlHitRate = 1;
 
   activeChart = [];
   activeData = [];
@@ -29,15 +38,110 @@ export class TrackerComponent implements OnInit {
   summaryDetails: any = {};
   summaryLoading: Boolean = true;
 
+  summaryPatients: any = {};
+  summaryPatientsLoading: Boolean = true;
+
   wardWiseCases: any = {};
   wardWiseLoading: Boolean = true;
 
   graphLoading: Boolean = true;
 
-  constructor(private dataservice: TrackerService) { }
+  locationset = [];
+
+  constructor(private dataservice: TrackerService) {
+  }
+
+  getLocation(): Observable<boolean> {
+    this.locationset = [];
+    this.districtInfoLoading = true;
+    return new Observable(observer => {
+      if(navigator){
+            navigator.geolocation.getCurrentPosition( pos => {
+            this.locationset.push(pos.coords.latitude);
+            this.locationset.push(pos.coords.longitude);
+            observer.next(true);
+            observer.complete();
+        });
+      }else{
+        observer.next(false);
+        observer.complete();
+      }
+    });
+
+  }
+
+  /**
+   * Function to call external service to check containment zone
+  */
+
+  checkZone(){
+    this.getLocation().subscribe(success => {
+      if(this.controlHitRate <= 5){
+        this.dataservice.getZoneStatus(this.locationset).subscribe(data =>{
+          this.districtInfoLoading = false;
+          let czone = data.data[0].containmentZoneName;
+          let district = data.data[0].district;
+          let districtZone = data.data[0].districtZoneType;
+          let cflag = data.data[0].inContainmentZone;
+          let caflag = data.data[0].containmentsAvailability;
+
+
+          if(caflag){
+              if(cflag){
+                   this.zoneMessage = 'OOPS! Your are in containment area <br>' +  czone;
+              }else{
+                   this.zoneMessage = 'Phew! Your are not in containment area.';
+              }
+          }else{
+             this.zoneMessage = 'Containment area information not available';
+          }
+
+          if(district != 'NA'){
+             this.zoneDistrict = district;
+             if(districtZone){
+                this.zoneType = districtZone;
+
+                // check for Orange Zone
+                if(districtZone.indexOf( "Orange" ) >=0){
+                  this.zoneClass = "icu";
+                }
+                
+                // check for Red Zone
+                if(districtZone.indexOf( "Red" ) >=0) {
+                  this.zoneClass = "confirm";
+                }
+                
+                // check for Green Zone
+                if(districtZone.indexOf( "Red" ) < 0 && districtZone.indexOf( "Orange" ) < 0) {
+                   this.zoneClass = "recovered";
+                }  
+             }
+             this.zoneTitleMessage = "Your are in " + district + ", a " + districtZone;
+          }else{
+             this.zoneTitleMessage = "District/City Information Not Available";
+          }
+          this.controlHitRate = this.controlHitRate + 1;
+        });
+
+      }else{
+        this.locationset = [];
+        this.districtInfoLoading = false;
+        this.zoneMessage = 'You have reached the limit for single session';
+      }
+     }, error => {
+       console.log("unable to receive co-ordinates");
+     });
+  }
 
   // Init all Charts & fetch Data
   ngOnInit(): void {
+
+
+    // get patient summary
+    this.dataservice.getSummaryPatients().subscribe(data=>{
+      this.summaryPatients = data;
+      this.summaryPatientsLoading = false;
+    });
 
     // get news
     this.dataservice.getNewsItems().subscribe(data=>{

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { formatDate } from '@angular/common';
 import { TrackerService } from '../../shared/tracker.service';
 
 @Component({
@@ -20,7 +19,7 @@ export class HeaderComponent implements OnInit {
     // get news
     this.dataservice.getMetaDetails().subscribe(data=>{
       if(data){
-        this.jstoday = data.LastUpdateDateTime
+        this.jstoday = data.LastUpdateDateTime;
       }else{
         this.jstoday = '';
       }

@@ -1,0 +1,63 @@
+<div class="row" *ngIf="testingSummary.PatientSummary!=null">
+    <!-- Testing & Patients summary starts -->
+    <div>&nbsp;</div>
+    <div class="card bg-light mb-3" style="width:100%;">
+      <div class="card-header">
+        <svg class="bi bi-info-circle" width="1.4em" height="1.4em" viewBox="0 0 18 18" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+           <path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+           <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+           <circle cx="8" cy="4.5" r="1"/>
+        </svg> Testing & Patients summary
+      </div>
+      <div class="card-body">
+        <div class="container">
+          <div class="row">
+            <div class="col" style="position:relative;padding:0px">
+                <div class="canimate deaths text-center">
+                  <h5>Total Tests</h5>
+                  {{testingSummary.DeltaTotalTests || '-'}}
+                  <sup *ngIf="testingSummary.DeltaTotalTests>0" style="font-size:8px;"> &#8593;</sup>
+                  <sup *ngIf="testingSummary.DeltaTotalTests<0" style="font-size:8px;"> &#8595;</sup>
+                  <h4>{{testingSummary.PatientSummary[0].TotalTests || 'NA'}}</h4>
+                  <div>&nbsp;</div>
+                </div>
+            </div>
+
+            <div class="col" style="position:relative;padding:0px">
+                <div class="canimate text-center">
+                  <h5>IN Quarantine</h5>
+                  {{testingSummary.DeltaInQuarantine || '-'}}
+                  <sup *ngIf="testingSummary.DeltaInQuarantine>0" style="font-size:8px;"> &#8593;</sup>
+                  <sup *ngIf="testingSummary.DeltaInQuarantine<0" style="font-size:8px;"> &#8595;</sup>
+                  <h4>{{testingSummary.PatientSummary[0].InQuarantine || 'NA'}}</h4>
+                  <div>&nbsp;</div>
+                </div>
+            </div>
+
+            <div class="col" style="position:relative;padding:0px">
+                <div class="canimate icu text-center">
+                  <h5>IN ICU</h5>
+                  {{testingSummary.DeltaInICU || '-'}}
+                  <sup *ngIf="testingSummary.DeltaInICU>0" style="font-size:8px;"> &#8593;</sup>
+                  <sup *ngIf="testingSummary.DeltaInICU<0" style="font-size:8px;"> &#8595;</sup>
+                  <h4>{{testingSummary.PatientSummary[0].InICU || 'NA'}}</h4>
+                  <div>&nbsp;</div>
+                </div>
+            </div>
+
+            <div class="col" style="position:relative;padding:0px">
+                <div class="canimate confirm text-center">
+                  <h5>ON Ventilator</h5>
+                  {{testingSummary.DeltaOnVentilator || '-'}}
+                  <sup *ngIf="testingSummary.DeltaOnVentilator>0" style="font-size:8px;"> &#8593;</sup>
+                  <sup *ngIf="testingSummary.DeltaOnVentilator<0" style="font-size:8px;"> &#8595;</sup>
+                  <h4>{{testingSummary.PatientSummary[0].OnVentilator || 'NA'}}</h4>
+                  <div>&nbsp;</div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Testing & Patients summary ends -->
+  </div>

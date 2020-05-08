@@ -4,5 +4,8 @@
   "newsjson": "news.json",
   "summaryjson": "summary.json",
   "wardjson": "ward-all-cases.json",
-  "summarygraphs": "district-summary.json"
+  "summarygraphs": "district-summary.json",
+  "patientSummary": "patient-summary-delta.json",
+  "zoneApiUrl": "https://data.geoiq.io/dataapis/v1.0/covid/locationcheck",
+  "apiKey": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtYWlsSWRlbnRpdHkiOiJ2Ym9yb2xlQGdtYWlsLmNvbSJ9.zrjzrluQQ0d7wFWhH6BM1b5IjLIRzztYfyMw4orPjds"
 }

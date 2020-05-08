@@ -14,6 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { TimePipe } from './shared/time.pipe';
 import { DatePipe } from '@angular/common'
 import { AppConfigService } from './shared/app-config.service';
+import { StatsComponent } from './components/stats/stats.component';
+import { SummaryComponent } from './components/summary/summary.component';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -28,6 +30,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     HeaderComponent,
     FooterComponent,
     TimePipe,
+    StatsComponent,
+    SummaryComponent,
   ],
   imports: [
     BrowserModule,

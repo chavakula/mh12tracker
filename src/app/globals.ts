@@ -4,5 +4,8 @@ export let SETTINGS = {
     newsApiUrl: 'news.json',
     summaryApiUrl: 'summary.json',
     wardWiseApiUrl: 'ward-all-cases.json',
-    summaryTimeseriesApiUrl: 'district-summary.json'
+    summaryTimeseriesApiUrl: 'district-summary.json',
+    patientSummary: 'patient-summary-delta.json',
+    zoneApiUrl: 'https://data.geoiq.io/dataapis/v1.0/covid/locationcheck',
+    apiKey: ''
 }
