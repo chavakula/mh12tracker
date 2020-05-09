@@ -1,11 +1,12 @@
 {
-  "baseApiUrl": "/data/",
+  "baseApiUrl": "https://api.mh12.org/",
   "metajson": "meta-details.json",
-  "newsjson": "news.json",
-  "summaryjson": "summary.json",
+  "newsjson": "punenews.json",
+  "summaryjson": "district-summary-latest.json",
   "wardjson": "ward-all-cases.json",
-  "summarygraphs": "district-summary.json",
+  "summarygraphs": "district-summary-range.json",
   "patientSummary": "patient-summary-delta.json",
+  "summaryDeltaGraph": "district-delta-graph.json",
   "zoneApiUrl": "https://data.geoiq.io/dataapis/v1.0/covid/locationcheck",
   "apiKey": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtYWlsSWRlbnRpdHkiOiJ2Ym9yb2xlQGdtYWlsLmNvbSJ9.zrjzrluQQ0d7wFWhH6BM1b5IjLIRzztYfyMw4orPjds"
 }

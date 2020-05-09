@@ -17,6 +17,7 @@ export class TrackerService {
   summaryApiUrl: string = appGlobals.SETTINGS.summaryApiUrl+"?v="+this.epoch;
   wardWiseApiUrl: string = appGlobals.SETTINGS.wardWiseApiUrl+"?v="+this.epoch;
   summaryTimeseriesApiUrl: string = appGlobals.SETTINGS.summaryTimeseriesApiUrl+"?v="+this.epoch;
+  summaryDeltaGraphApiUrl: string = appGlobals.SETTINGS.summaryDeltaGraph+"?v="+this.epoch;
   zoneApi: string = appGlobals.SETTINGS.zoneApiUrl;
   patientSummaryApiUrl: string = appGlobals.SETTINGS.patientSummary+"?v="+this.epoch;
 
@@ -96,6 +97,18 @@ export class TrackerService {
         catchError(this.error)
       )
   }
+
+  /**
+   * Get time series for delta graph
+  */
+
+ getSummaryDeltaGraph(): Observable<any>{
+  let API_URL = `${this.baseApiUrl}${this.summaryDeltaGraphApiUrl}`;
+  return this.httpClient.get(API_URL)
+    .pipe(
+      catchError(this.error)
+    )
+}
 
   /**
    * get containment zone status GeoIQ api

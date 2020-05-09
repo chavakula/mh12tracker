@@ -1,0 +1,23 @@
+{
+    "alert": "Alert: No official ward wise data from PMC/DGPIR Pune social media handles since 7th May 2020.",
+    "pmcpopulation": 3371626,
+    "sampleratio": 100000,
+    "wardwise":{
+        "AB": 169432,
+        "BP": 211910,
+        "BW": 200255,
+        "DS": 263966,
+        "DP": 155160,
+        "HM": 368091,
+        "KV": 214275,
+        "KY": 154303,
+        "KB": 236606,
+        "NW": 275938,
+        "SN": 169891,
+        "SR": 244926,
+        "WR": 204644,
+        "WK": 248451,
+        "YKD": 253778,
+        "PR": 0
+    }
+}

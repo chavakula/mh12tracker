@@ -25,6 +25,7 @@ export class AppConfigService {
                 appGlobals.SETTINGS.summaryTimeseriesApiUrl = data["summarygraphs"];
                 appGlobals.SETTINGS.zoneApiUrl = data["zoneApiUrl"];
                 appGlobals.SETTINGS.apiKey = data["apiKey"];
+                appGlobals.SETTINGS.summaryDeltaGraph = data["summaryDeltaGraph"];
             });
     }
 

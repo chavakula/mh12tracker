@@ -6,48 +6,36 @@
             <path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
             <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
             <circle cx="8" cy="4.5" r="1"/>
-            </svg>High level Statistics - <b>Per 100 persons</b>
+            </svg> High level Statistics 
     </div>
     <div class="card-body">
         <div class="container">
         <div class="row">
-            <div class="col" style="position:relative;padding:0px">
-                <div class="canimate text-center">
-                <h5>Testing</h5>
-                <h4>{{totalTest | number : '.2-2'}}/100</h4>
-                
+            <div class="col-md-12" style="position:relative;padding:0px">
+                <div class="canimate text-left">
+                    <h4 class="headline">{{totalTest  | number : '.2-2'}}% of PUNE population has been tested.</h4>
                 </div>
             </div>
-
-            <div class="col" style="position:relative;padding:0px">
-                <div class="canimate confirm text-center">
-                <h5>Infection</h5>
-                <h4>{{infectionRate | number : '.2-2'}}/100</h4>
-                
+            <div>&nbsp;</div>
+            <div class="col-md-12" style="position:relative;padding:0px">
+                <div class="canimate confirm text-left">
+                   <h4 class="headline">{{infectionRate | number : '.2-2'}}% of PUNE population is infected. </h4>
                 </div>
             </div>
-
-            <div class="col" style="position:relative;padding:0px">
-                <div class="canimate recovered text-center">
-                <h5>Recovery</h5>
-                <h4>{{recoveryRate | number : '.2-2'}}/100</h4>
-                
+            <div>&nbsp;</div>
+            <div class="col-md-12" style="position:relative;padding:0px">
+                <div class="canimate recovered text-left">
+                   <h4 class="headline">{{recoveryRate | number : '.2-2' }}% of infected in PUNE have recovered.</h4> 
                 </div>
             </div>
-
-            <div class="col" style="position:relative;padding:0px">
-                <div class="canimate deaths text-center">
-                <h5>Mortality</h5>
-                <h4>{{deathRate | number : '.2-2'}}/100</h4>
-                
+            <div>&nbsp;</div>
+            <div class="col-md-12" style="position:relative;padding:0px">
+                <div class="canimate deaths text-left">
+                   <h4 class="headline">{{deathRate | number : '.2-2' }}% of infected in PUNE has unfortunately died.</h4>
                 </div>
             </div>
+            <div style="color:#333;font-size:11px;margin-top: 30px;padding:0px" class="text-left">* Population source: <a href="https://pmc.gov.in/en/census" target="_blank">PMC Census</a> </div>
         </div>
-        <div class="row">
-            <div class="col text-center" style="border-right:1px solid #000;"><b>Of Total Population</b></div>
-            <div class="col text-center"><b>Of Total Infection</b></div>
-        </div>
-        <div style="color:#333;font-size:11px;margin-top: 30px;">* Population source: <a href="https://pmc.gov.in/en/census" target="_blank">PMC Census</a> </div>
         </div>
     </div>
   </div>

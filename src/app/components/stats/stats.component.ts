@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, SimpleChanges, EventEmitter } from '@angular/core';
 import { TrackerService } from '../../shared/tracker.service';
 
 @Component({
@@ -19,18 +19,24 @@ export class StatsComponent implements OnInit {
 
   @Input() patients: any;
   @Input() summarydetails: any;
+  
+  // pass message to parent
+  @Output() alertMessage: EventEmitter<any> = new EventEmitter();
+
   changelog: string[] = [];
   ngOnInit(): void {
     
     this.dataservice.getPuneMetaData().subscribe(data=>{
        this.puneMeta = data;
 
+       this.alertMessage.emit(data.alert);
+
        let totaltests = this.patients.PatientSummary[0].TotalTests;
        this.totalTest = (totaltests*100)/this.puneMeta.pmcpopulation;
 
-       this.recoveryRate = ((this.summarydetails.DistrictCases[0].Recovered)*100)/this.summarydetails.DistrictCases[0].Confirmed;
+       this.recoveryRate =  ((this.summarydetails.DistrictCases[0].Recovered)*100)/this.summarydetails.DistrictCases[0].Confirmed;
        this.deathRate = ((this.summarydetails.DistrictCases[0].Death)*100)/this.summarydetails.DistrictCases[0].Confirmed;
-       this.infectionRate = ((this.summarydetails.DistrictCases[0].Confirmed)*100)/this.puneMeta.pmcpopulation;
+       this.infectionRate =((this.summarydetails.DistrictCases[0].Confirmed)*100)/this.puneMeta.pmcpopulation;
     });
   }
 }

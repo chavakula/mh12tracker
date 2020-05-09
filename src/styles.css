@@ -81,14 +81,17 @@ html, body {
 
 .deaths{
   color:#6c757d;
-  font-size:13px;
+  font-size:14px;
 }
 
 h5{
   font-size:14px;
   margin:0;
 }
-
+.headline{
+  font-size:13px!important;
+  font-weight: 400;
+}
 h4{
   font-size:20px;
   margin:0;

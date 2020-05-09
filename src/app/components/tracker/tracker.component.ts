@@ -22,6 +22,8 @@ export class TrackerComponent implements OnInit {
   zoneTitleMessage = "";
   districtInfoLoading: Boolean = true;
   controlHitRate = 1;
+  staticAlertClosed = false;
+  alertMessageContent: String = '';
 
   activeChart = [];
   activeData = [];
@@ -88,9 +90,9 @@ export class TrackerComponent implements OnInit {
 
           if(caflag){
               if(cflag){
-                   this.zoneMessage = 'OOPS! Your are in containment area <br>' +  czone;
+                   this.zoneMessage = 'OOPS! You are in containment area <br>' +  czone;
               }else{
-                   this.zoneMessage = 'Phew! Your are not in containment area.';
+                   this.zoneMessage = 'Phew! You are not in containment area.';
               }
           }else{
              this.zoneMessage = 'Containment area information not available';
@@ -116,7 +118,7 @@ export class TrackerComponent implements OnInit {
                    this.zoneClass = "recovered";
                 }  
              }
-             this.zoneTitleMessage = "Your are in " + district + ", a " + districtZone;
+             this.zoneTitleMessage = "You are in " + district + ", a " + districtZone;
           }else{
              this.zoneTitleMessage = "District/City Information Not Available";
           }
@@ -133,9 +135,15 @@ export class TrackerComponent implements OnInit {
      });
   }
 
+  getMessage(data: String){
+    this.alertMessageContent = data;
+  }
+
   // Init all Charts & fetch Data
   ngOnInit(): void {
 
+    // dismiss alert
+    setTimeout(() => this.staticAlertClosed = true, 20000);
 
     // get patient summary
     this.dataservice.getSummaryPatients().subscribe(data=>{
@@ -162,16 +170,16 @@ export class TrackerComponent implements OnInit {
     });
 
     // get data for graph
-    this.dataservice.getSummaryTimeseries().subscribe(data=>{
+    this.dataservice.getSummaryDeltaGraph().subscribe(data=>{
       //setTimeout(function(){ console.log("log"); }, 3000);
       // populate timeseries data for active,death,confirm,recovered
 
       data.forEach(row => {
-          this.labels.push(row.Date);
-          this.confirmData.push(row.Confirmed);
-          this.activeData.push(row.Active);
-          this.deathData.push(row.Death);
-          this.recoverData.push(row.Recovered);
+          this.labels.push(row.CreatedAt);
+          this.confirmData.push(row.DeltaConfirmed);
+          this.activeData.push(row.DeltaActive);
+          this.deathData.push(row.DeltaDeath);
+          this.recoverData.push(row.DeltaRecovered);
       });
 
       // Confirm Data
@@ -189,6 +197,12 @@ export class TrackerComponent implements OnInit {
              ]
             },
             options: {
+            padding: {
+              bottom: 5,
+              top:5,
+              left: 5,
+              right: 5
+            },
             responsive: true,
             legend: {
               display: false
@@ -219,6 +233,12 @@ export class TrackerComponent implements OnInit {
              ]
             },
             options: {
+            padding: {
+              bottom: 5,
+              top:5,
+              left: 5,
+              right: 5
+            },
             responsive: true,
             legend: {
               display: false
@@ -249,6 +269,14 @@ export class TrackerComponent implements OnInit {
              ]
             },
             options: {
+            layout: {
+              padding: {
+                bottom: 5,
+                top:5,
+                left: 5,
+                right: 5
+              }
+            },
             responsive: true,
             legend: {
               display: false
@@ -279,6 +307,12 @@ export class TrackerComponent implements OnInit {
              ]
             },
             options: {
+            padding: {
+              bottom: 5,
+              top:5,
+              left: 5,
+              right: 5
+            },
             responsive: true,
             legend: {
               display: false
