@@ -19,6 +19,7 @@ export class TrackerService {
   summaryTimeseriesApiUrl: string = appGlobals.SETTINGS.summaryTimeseriesApiUrl+"?v="+this.epoch;
   summaryDeltaGraphApiUrl: string = appGlobals.SETTINGS.summaryDeltaGraph+"?v="+this.epoch;
   zoneApi: string = appGlobals.SETTINGS.zoneApiUrl;
+  nearByApiUrl: string = appGlobals.SETTINGS.nearByApiUrl;
   patientSummaryApiUrl: string = appGlobals.SETTINGS.patientSummary+"?v="+this.epoch;
 
   const;
@@ -34,7 +35,7 @@ export class TrackerService {
    * Get Meta Details
   **/
  getPuneMetaData(): Observable<any>{
-  let API_URL = "/assets/pune-meta-info.json";
+  let API_URL = "/assets/pune-meta-info.json?v="+this.epoch;
   return this.httpClient.get(API_URL)
     .pipe(
       catchError(this.error)
@@ -122,6 +123,19 @@ export class TrackerService {
        catchError(this.error)
      );
    }
+
+   /**
+   * get Near by containment zone status GeoIQ api
+   */
+
+  getNearByAreas(lng: any, lat: any): Observable<any>{
+    const body = { lng: lng, lat: lat, radius: appGlobals.SETTINGS.nearByRadius, key: appGlobals.SETTINGS.apiKey};
+    let API_URL = `${this.nearByApiUrl}`;
+    return this.httpClient.post(API_URL,body,this.httpOptions)
+    .pipe(
+      catchError(this.error)
+    );
+  }
 
    /**
    * Get patient summary

@@ -49,6 +49,8 @@ export class TrackerComponent implements OnInit {
   graphLoading: Boolean = true;
 
   locationset = [];
+  nearByAreas: string = "";
+  nearByAreasLoading: Boolean = true;
 
   constructor(private dataservice: TrackerService) {
   }
@@ -79,6 +81,15 @@ export class TrackerComponent implements OnInit {
   checkZone(){
     this.getLocation().subscribe(success => {
       if(this.controlHitRate <= 5){
+
+        this.dataservice.getNearByAreas(this.locationset[1],this.locationset[0]).subscribe(data=>{
+          if(data.containmentsAvailability){
+            this.nearByAreas = "<b>Containment Areas Around You : </b> <br>" + data.containmentZoneNames.join("<br>");
+            this.nearByAreasLoading = false;
+          } 
+        })
+        
+
         this.dataservice.getZoneStatus(this.locationset).subscribe(data =>{
           this.districtInfoLoading = false;
           let czone = data.data[0].containmentZoneName;

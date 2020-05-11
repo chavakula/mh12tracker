@@ -8,5 +8,7 @@ export let SETTINGS = {
     summaryDeltaGraph: 'district-delta-graph.json',
     patientSummary: 'patient-summary-delta.json',
     zoneApiUrl: 'https://data.geoiq.io/dataapis/v1.0/covid/locationcheck',
-    apiKey: ''
+    nearByApiUrl: 'https://data.geoiq.io/dataapis/v1.0/covid/nearbyzones',
+    apiKey: '',
+    nearByRadius: 3000
 }

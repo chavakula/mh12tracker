@@ -8,6 +8,9 @@
               <ng-template #popContent>
                   <div class="loader loaderpadding" *ngIf="districtInfoLoading">Loading...</div>
                   <div *ngIf="!districtInfoLoading" class="text-center" style="font-size:12px!important;" [innerHTML]= "zoneMessage"></div>
+                  <hr/>
+                  <div *ngIf="!nearByAreasLoading && nearByAreas!=''" style="font-size:13px!important;" [innerHtml]="nearByAreas"></div>
+                  <div *ngIf="!nearByAreasLoading && nearByAreas!=''">&nbsp;</div>
               </ng-template>
               <ng-template #popTitle>
                 <div style="font-size:10px!important;" class="text-center {{zoneClass}}">
@@ -16,18 +19,21 @@
                 </div>
               </ng-template>
               <button placement="bottom" [ngbPopover]="popContent" [popoverTitle]="popTitle"  type="button" class="btn btn-outline-primary" (click)="checkZone()">
-                      <svg class="bi bi-bell" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M8 16a2 2 0 002-2H6a2 2 0 002 2z"/>
-                      <path fill-rule="evenodd" d="M8 1.918l-.797.161A4.002 4.002 0 004 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 00-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 111.99 0A5.002 5.002 0 0113 6c0 .88.32 4.2 1.22 6z" clip-rule="evenodd"/>
-                    </svg> Check Your Zone Status
+                  <svg class="bi bi-geo" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11 4a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    <path d="M7.5 4h1v9a.5.5 0 01-1 0V4z"/>
+                    <path fill-rule="evenodd" d="M6.489 12.095a.5.5 0 01-.383.594c-.565.123-1.003.292-1.286.472-.302.192-.32.321-.32.339 0 .013.005.085.146.21.14.124.372.26.701.382.655.246 1.593.408 2.653.408s1.998-.162 2.653-.408c.329-.123.56-.258.701-.382.14-.125.146-.197.146-.21 0-.018-.018-.147-.32-.339-.283-.18-.721-.35-1.286-.472a.5.5 0 11.212-.977c.63.137 1.193.34 1.61.606.4.253.784.645.784 1.182 0 .402-.219.724-.483.958-.264.235-.618.423-1.013.57-.793.298-1.855.472-3.004.472s-2.21-.174-3.004-.471c-.395-.148-.749-.336-1.013-.571-.264-.234-.483-.556-.483-.958 0-.537.384-.929.783-1.182.418-.266.98-.47 1.611-.606a.5.5 0 01.595.383z" clip-rule="evenodd"/>
+                  </svg> Check Your Zone Status
               </button>
             </div>
         </div>
         <div>&nbsp;</div>
         <div class="row">
-          <ngb-alert class="canimate" *ngIf="!staticAlertClosed && alertMessageContent!=''" (close)="staticAlertClosed = true">
-              {{alertMessageContent}}
-          </ngb-alert>
+          <div *ngFor="let alert of alertMessageContent;let i = index">
+            <ngb-alert  class="canimate" *ngIf="!staticAlertClosed && alertMessageContent!=''" (close)="staticAlertClosed = true">
+                {{alert}}
+            </ngb-alert>
+          </div>
           <!--summary section starts-->
           <div class="card bg-light mb-12" style="width:100%">
             <div class="card-header">

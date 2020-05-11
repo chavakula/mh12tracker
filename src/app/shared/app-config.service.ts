@@ -26,6 +26,8 @@ export class AppConfigService {
                 appGlobals.SETTINGS.zoneApiUrl = data["zoneApiUrl"];
                 appGlobals.SETTINGS.apiKey = data["apiKey"];
                 appGlobals.SETTINGS.summaryDeltaGraph = data["summaryDeltaGraph"];
+                appGlobals.SETTINGS.nearByApiUrl = data["nearByApiUrl"];
+                appGlobals.SETTINGS.nearByRadius = data["nearByRadius"];
             });
     }
 

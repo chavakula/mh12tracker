@@ -8,5 +8,7 @@
   "patientSummary": "patient-summary-delta.json",
   "summaryDeltaGraph": "district-delta-graph.json",
   "zoneApiUrl": "https://data.geoiq.io/dataapis/v1.0/covid/locationcheck",
-  "apiKey": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtYWlsSWRlbnRpdHkiOiJ2Ym9yb2xlQGdtYWlsLmNvbSJ9.zrjzrluQQ0d7wFWhH6BM1b5IjLIRzztYfyMw4orPjds"
+  "nearByApiUrl": "https://data.geoiq.io/dataapis/v1.0/covid/nearbyzones",
+  "apiKey": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtYWlsSWRlbnRpdHkiOiJ2Ym9yb2xlQGdtYWlsLmNvbSJ9.zrjzrluQQ0d7wFWhH6BM1b5IjLIRzztYfyMw4orPjds",
+  "nearByRadius": 3000
 }

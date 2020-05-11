@@ -1,5 +1,8 @@
 {
-    "alert": "Alert: No official ward wise data from PMC/DGPIR Pune social media handles since 7th May 2020.",
+    "alert":[
+        "Alert 10th May 2020: Deaths have been updated ward wise as released by DGIPR, Pune.",
+        "Alert 07th May 2020: No official ward wise data from PMC/DGIPR Pune social media handles since 7th May 2020."
+    ],
     "pmcpopulation": 3371626,
     "sampleratio": 100000,
     "wardwise":{
