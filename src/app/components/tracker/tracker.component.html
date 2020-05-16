@@ -152,9 +152,15 @@
                     <tr *ngFor="let ward of wardWiseCases; let i = index">
 
                       <td>
-                         {{ward.Name}}
-                         <sup class="confirm" *ngIf="ward.WardCases[0].Confirmed >0"> {{ward.WardCases[0].Confirmed}} <sup style="font-size:8px;">&#8593;</sup></sup> &nbsp;
-                         <sup class="death" *ngIf="ward.WardCases[0].Death >0">{{ward.WardCases[0].Death}} <sup style="font-size:8px;">&#8593;</sup></sup></td>
+                         {{ward.Name}} <br>
+                         <div style="float:left;font-size:10px;width:33%" class="recovered">Recovered: {{ward.WardCases[0].Recovered}}</div>
+                         <div style="float:left;font-size:10px;width:33%;" class="confirm">New Cases: {{ward.WardCases[0].Confirmed}}</div>
+                         <div style="float:left;font-size:10px;width:34%;" class="death">New Deaths: {{ward.WardCases[0].Death}}</div>
+                         <!--<sup class="confirm" *ngIf="ward.WardCases[0].Confirmed >0"> {{ward.WardCases[0].Confirmed}} <sup style="font-size:8px;">&#8593;</sup></sup>&nbsp;
+                         <sup class="death" *ngIf="ward.WardCases[0].Death >0">{{ward.WardCases[0].Death}} <sup style="font-size:8px;">&#8593;</sup></sup>&nbsp;
+                         <sup class="recovered" *ngIf="ward.WardCases[0].Recovered >0">{{ward.WardCases[0].Recovered}} <sup style="font-size:8px;">&#8593;</sup></sup>
+                         -->
+                      </td>
                       <td style="text-align:left">
                            {{ward.TotalConfirmed}}
                       </td>
