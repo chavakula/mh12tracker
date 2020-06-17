@@ -166,4 +166,33 @@ h4{
     transform: rotate(360deg);
   }
 }
-/***********************MENU****************************/
+/***********************MAP****************************/
+
+.header{
+  color: #FF0000;
+}
+.path{
+  fill: #CCC;
+  stroke: #fff;
+}
+#svg {
+  width:100%;
+  height: auto;
+}
+
+#title{
+  font-size:18px;
+  color: #ff073a;
+  font-weight: bold;
+}
+
+
+.activebubble:hover{
+  stroke: black;
+  stroke-width: 0.5px;
+}
+
+.recoveredbubble:hover{
+  stroke: black;
+  stroke-width: 0.5px;
+}

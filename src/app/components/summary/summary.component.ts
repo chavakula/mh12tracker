@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { TrackerService } from 'src/app/shared/tracker.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-summary',
@@ -7,9 +9,14 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 })
 export class SummaryComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dataservice: TrackerService,private modalService: NgbModal,) { }
   testingSummary: any = {};
+  puneMeta: any = {};
   ngOnInit(): void {
+    this.dataservice.getPuneMetaData().subscribe(data=>{
+      this.puneMeta = data;
+   });
+
   }
 
   @Input() summary: any;
@@ -27,6 +34,11 @@ export class SummaryComponent implements OnInit {
         }
       }
     }
+  }
+
+  // model test
+  openScrollableContent(trendContent) {
+    this.modalService.open(trendContent, { scrollable: true });
   }
 
 }

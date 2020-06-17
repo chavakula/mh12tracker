@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import * as Chart from 'chart.js';
 import { TrackerService } from '../../shared/tracker.service';
 import { Observable } from 'rxjs/internal/Observable';
+import { Meta } from '@angular/platform-browser';
+import { DatePipe } from '@angular/common';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-tracker',
@@ -15,6 +19,7 @@ export class TrackerComponent implements OnInit {
   confirmChart = [];
   confirmData = [];
   labels = [];
+  points = [];
   zoneMessage = "";
   zoneType = "";
   zoneDistrict = "";
@@ -24,6 +29,8 @@ export class TrackerComponent implements OnInit {
   controlHitRate = 1;
   staticAlertClosed = false;
   alertMessageContent: String = '';
+  metaInformation: any = [];
+  sline: any;
 
   activeChart = [];
   activeData = [];
@@ -52,7 +59,15 @@ export class TrackerComponent implements OnInit {
   nearByAreas: string = "";
   nearByAreasLoading: Boolean = true;
 
-  constructor(private dataservice: TrackerService) {
+  today: number = Date.now();
+  demotest: any;
+
+  constructor(private modalService: NgbModal, private dataservice: TrackerService, private metaService: Meta, private datePipe: DatePipe) {
+  }
+
+  // model test
+  openScrollableContent(longContent) {
+    this.modalService.open(longContent, { scrollable: true });
   }
 
   getLocation(): Observable<boolean> {
@@ -150,8 +165,29 @@ export class TrackerComponent implements OnInit {
     this.alertMessageContent = data;
   }
 
+  getMetaData(data: any){
+    this.metaInformation = data;
+  }
+
+  get sortDataWardDesc() {
+    return this.wardWiseCases.sort((a, b) => {
+      return b.TotalConfirmed - a.TotalConfirmed;
+    });
+  }
+
   // Init all Charts & fetch Data
-  ngOnInit(): void {
+  ngOnInit(): void {  
+    this.metaService.updateTag({
+      content: 'Pune Corona virus update for ' + this.datePipe.transform(this.today, 'dd/MM/yyyy')
+    },
+     "property='twitter:title'"
+    );
+
+    this.metaService.updateTag({
+      content: 'Pune Corona virus update for ' + this.datePipe.transform(this.today, 'dd/MM/yyyy')
+    },
+     "property='og:title'"
+    );
 
     // dismiss alert
     setTimeout(() => this.staticAlertClosed = true, 20000);
@@ -186,13 +222,19 @@ export class TrackerComponent implements OnInit {
       // populate timeseries data for active,death,confirm,recovered
 
       data.forEach(row => {
-          this.labels.push(row.CreatedAt);
+          this.labels.push(this.datePipe.transform(row.CreatedAt, 'dd-MMM'));
           this.confirmData.push(row.DeltaConfirmed);
           this.activeData.push(row.DeltaActive);
           this.deathData.push(row.DeltaDeath);
           this.recoverData.push(row.DeltaRecovered);
+          this.points.push(0);
       });
-
+      
+      this.demotest = this.confirmData.toString();
+    
+      // to show last dot on graph
+      this.points[this.points.length-1] = 1.5;
+    
       // Confirm Data
       this.confirmChart = new Chart('confirm', {
            type: 'line',
@@ -203,11 +245,14 @@ export class TrackerComponent implements OnInit {
                 data: this.confirmData,
                 borderColor: '#ff073a',
                 fill: false,
-                pointRadius: 0,
+                pointRadius: this.points,
+                borderWidth: 2.8
               }
              ]
             },
             options: {
+            tooltips: {enabled: false},
+            hover: {mode: null},
             padding: {
               bottom: 5,
               top:5,
@@ -220,7 +265,8 @@ export class TrackerComponent implements OnInit {
             },
             scales: {
               xAxes: [{
-                display: false
+                display: false,
+                offset: true
               }],
               yAxes: [{
                 display: false
@@ -239,11 +285,14 @@ export class TrackerComponent implements OnInit {
                 data: this.activeData,
                 borderColor: '#007bff',
                 fill: false,
-                pointRadius: 0,
+                pointRadius: this.points,
+                borderWidth: 2.8
               }
              ]
             },
             options: {
+            tooltips: {enabled: false},
+            hover: {mode: null},
             padding: {
               bottom: 5,
               top:5,
@@ -256,7 +305,8 @@ export class TrackerComponent implements OnInit {
             },
             scales: {
               xAxes: [{
-                display: false
+                display: false,
+                offset: true
               }],
               yAxes: [{
                 display: false
@@ -275,11 +325,14 @@ export class TrackerComponent implements OnInit {
                 data: this.recoverData,
                 borderColor: '#28a745',
                 fill: false,
-                pointRadius: 0,
+                pointRadius: this.points,
+                borderWidth: 2.8
               }
              ]
             },
             options: {
+            tooltips: {enabled: false},
+            hover: {mode: null},
             layout: {
               padding: {
                 bottom: 5,
@@ -294,7 +347,8 @@ export class TrackerComponent implements OnInit {
             },
             scales: {
               xAxes: [{
-                display: false
+                display: false,
+                offset: true
               }],
               yAxes: [{
                 display: false
@@ -313,11 +367,14 @@ export class TrackerComponent implements OnInit {
                 data: this.deathData,
                 borderColor: '#6c757d',
                 fill: false,
-                pointRadius: 0,
+                pointRadius: this.points,
+                borderWidth: 2.8
               }
              ]
             },
             options: {
+            tooltips: {enabled: false},
+            hover: {mode: null},
             padding: {
               bottom: 5,
               top:5,
@@ -330,7 +387,8 @@ export class TrackerComponent implements OnInit {
             },
             scales: {
               xAxes: [{
-                display: false
+                display: false,
+                offset: true
               }],
               yAxes: [{
                 display: false

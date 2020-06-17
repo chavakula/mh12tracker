@@ -1,10 +1,14 @@
 {
     "alert":[
-        "Alert 10th May 2020: Deaths have been updated ward wise as released by DGIPR, Pune.",
-        "Alert 07th May 2020: No official ward wise data from PMC/DGIPR Pune social media handles since 7th May 2020."
+        "Alert 16th May 2020: Reconciliation of ward wise data has been released by PMC officials. Ward wise data has been updated accordingly."
     ],
     "pmcpopulation": 3371626,
+    "indiatests": 2227642,
+    "mahatests": 274040,
     "sampleratio": 100000,
+    "puneconfirm": 3295,
+    "mahaconfirm": 30706,
+    "indiaconfirm": 90927,
     "wardwise":{
         "AB": 169432,
         "BP": 211910,

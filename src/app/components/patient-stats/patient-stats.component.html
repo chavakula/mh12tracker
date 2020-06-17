@@ -1,0 +1,12 @@
+<div style="font-size: 10px;float:right;margin-bottom: 10px;"><b>* Trend for last 15 days</b></div>
+<h2 class="deaths" style="font-size: 20px!important;">Sample Testing Trend</h2>
+<div [hidden]="patientsummaryLoading"><canvas id="confirmstats">{{ confirmChart }}</canvas></div>
+<div>&nbsp;</div>
+<h2 class="confirm" style="font-size: 20px!important;">Postive patients Trend</h2>
+<div [hidden]="patientsummaryLoading"><canvas id="postivechart">{{ postiveChart }}</canvas></div>
+<div>&nbsp;</div>
+<h2 class="icu" style="font-size: 20px!important;">ICU patients Trend</h2>
+<div [hidden]="patientsummaryLoading"><canvas id="icuchart">{{ icuChart }}</canvas></div>
+<div>&nbsp;</div>
+<h2 style="font-size: 20px!important;">Ventilator patients Trend</h2>
+<div [hidden]="patientsummaryLoading"><canvas id="venchart">{{ venChart }}</canvas></div>

@@ -1,6 +1,5 @@
 <div class="row flex-md-row">
  <div class="col-md-6">
-
    <div class="card">
       <div class="container">
         <div class="row">
@@ -35,16 +34,21 @@
             </ngb-alert>
           </div>
           <!--summary section starts-->
+          <div style="float:right;" class="fb-share-button" data-href="https://mh12.org" data-layout="button_count" data-size="small">
+            <iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fmh12.org&layout=button_count&size=small&width=89&height=20&appId" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+          </div>
           <div class="card bg-light mb-12" style="width:100%">
             <div class="card-header">
               <svg class="bi bi-info-circle" width="1.4em" height="1.4em" viewBox="0 0 18 18" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                  <path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
                  <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
                  <circle cx="8" cy="4.5" r="1"/>
-              </svg> Source: PMC Care & Smart Pune official health bulletin.
+              </svg> Source: PMC Care & Smart Pune official health bulletin.        
             </div>
             <div class="card-body">
                <div class="container">
+                 <div class="text-center"><button type="button" class="btn btn-sm btn-outline-secondary ml-2" (click)="openScrollableContent(longContent)">Click For Trends</button></div>
+                 <div>&nbsp;</div>
                  <div class="row">
                    <div class="col" style="position:relative;padding:0px">
                        <div class="canimate confirm text-center">
@@ -118,7 +122,7 @@
           </div>
           <!--summary section ends-->
         </div>
-
+        <div>&nbsp;</div>
         <div *ngIf="(summaryPatients | json) != '{}'">
           <app-summary [summary] = "summaryPatients"></app-summary>
         </div>
@@ -144,24 +148,27 @@
               <table class="table table-striped">
                   <thead>
                     <tr>
-                      <th>Ward</th>
-                      <th>Cases</th>
+                      <th style="padding: 2px!important;"><h4>Ward</h4></th>
+                      <th style="padding: 2px!important;text-align:right;"><h4>Cases</h4></th>
                     </tr>
                   </thead>
                   <tbody *ngIf="wardWiseCases.length > 0">
-                    <tr *ngFor="let ward of wardWiseCases; let i = index">
+                    <tr *ngFor="let ward of sortDataWardDesc; let i = index">
 
-                      <td>
-                         {{ward.Name}} <br>
-                         <div style="float:left;font-size:10px;width:33%" class="recovered">Recovered: {{ward.WardCases[0].Recovered}}</div>
-                         <div style="float:left;font-size:10px;width:33%;" class="confirm">New Cases: {{ward.WardCases[0].Confirmed}}</div>
-                         <div style="float:left;font-size:10px;width:34%;" class="death">New Deaths: {{ward.WardCases[0].Death}}</div>
+                      <td style="padding: 2px!important;">
+                         <b>{{ward.Name}}</b>
+                         <div style="line-height: 5px;">&nbsp;</div>
+                         <div style="float:left;font-size:10px;width:50%" class="recovered">Total Recovery: {{ward.TotalRecovery || "-" }}</div>
+                         <div style="float:left;font-size:10px;width:50%" class="death">Total Deaths: {{ward.TotalDeath || "-" }}</div>
+                         <!--<div style="float:left;font-size:10px;width:26%;" class="confirm">New Cases: {{ward.WardCases[0].Confirmed}}</div>
+                         <div style="float:left;font-size:10px;width:24%;" class="death">New Deaths: {{ward.WardCases[0].Death}}</div>-->
+                         <div style="line-height: 5px;">&nbsp;</div>
                          <!--<sup class="confirm" *ngIf="ward.WardCases[0].Confirmed >0"> {{ward.WardCases[0].Confirmed}} <sup style="font-size:8px;">&#8593;</sup></sup>&nbsp;
                          <sup class="death" *ngIf="ward.WardCases[0].Death >0">{{ward.WardCases[0].Death}} <sup style="font-size:8px;">&#8593;</sup></sup>&nbsp;
                          <sup class="recovered" *ngIf="ward.WardCases[0].Recovered >0">{{ward.WardCases[0].Recovered}} <sup style="font-size:8px;">&#8593;</sup></sup>
                          -->
                       </td>
-                      <td style="text-align:left">
+                      <td style="text-align:right;padding: 2px!important;">
                            {{ward.TotalConfirmed}}
                       </td>
                       <!--<td style="text-align:left">
@@ -181,34 +188,62 @@
             </div>
           </div>
           <!-- Area wise section ends -->
-
         </div>
-
       </div>
    </div>
  </div>
  <div class="col-md-6 canimate">
-   <div class="text-center">
-     <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed"
-             [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
-             <svg class="bi bi-bell" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-             <path d="M8 16a2 2 0 002-2H6a2 2 0 002 2z"/>
-             <path fill-rule="evenodd" d="M8 1.918l-.797.161A4.002 4.002 0 004 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 00-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 111.99 0A5.002 5.002 0 0113 6c0 .88.32 4.2 1.22 6z" clip-rule="evenodd"/>
-           </svg> News
-     </button>
-   </div>
-   <div id="collapseExample" [ngbCollapse]="isCollapsed">
-     <div *ngIf = "!newsLoading" class="card canimate">
-       <div class="card-body">
-         <p *ngFor="let news of newsArticles; let i = index">
-           <ngb-alert>
-              <b>{{news.Date | timeAgo}}</b><br>
-              {{news.Summary}} <br>
-              <div class="text-right">[ <a rel="noreferrer" href="{{news.Source}}" target="_blank" aria-label="mh12.org home">source</a> ]</div>
-           </ngb-alert>
-         </p>
-       </div>
+   <div class="container">
+     <div class="row">
+      <div class="col">
+        <div class="text-center">
+            <app-punemap></app-punemap>
+        </div>
+      </div>
+     </div>
+     <div class="row">
+          <div class="col">
+              <div class="text-center">
+                <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed"
+                        [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+                        <svg class="bi bi-bell" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 16a2 2 0 002-2H6a2 2 0 002 2z"/>
+                        <path fill-rule="evenodd" d="M8 1.918l-.797.161A4.002 4.002 0 004 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 00-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 111.99 0A5.002 5.002 0 0113 6c0 .88.32 4.2 1.22 6z" clip-rule="evenodd"/>
+                      </svg> News
+                </button>
+              </div>
+              <div id="collapseExample" [ngbCollapse]="isCollapsed">
+                <div *ngIf = "!newsLoading" class="card canimate">
+                  <div class="card-body">
+                    <p *ngFor="let news of newsArticles; let i = index">
+                      <ngb-alert>
+                        <b>{{news.Date | timeAgo}}</b><br>
+                        {{news.Summary}} <br>
+                        <div class="text-right">[ <a rel="noreferrer" href="{{news.Source}}" target="_blank" aria-label="mh12.org home">source</a> ]</div>
+                      </ngb-alert>
+                    </p>
+                  </div>
+                </div>
+              </div>
+          </div>
      </div>
    </div>
  </div>
 </div>
+
+<ng-template #longContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Pune Coronavirus Daily Trends</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body canimate">
+      <div *ngIf="confirmData!=null && labels!=null && deathData!=null && recoverData!=null">
+        <app-infection-stats [deathData] = "deathData" [recoverData] = "recoverData" [activeData] = "activeData"  [confirmData] = "confirmData" [label] = "labels"></app-infection-stats>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>

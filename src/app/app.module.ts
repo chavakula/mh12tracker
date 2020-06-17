@@ -16,6 +16,9 @@ import { DatePipe } from '@angular/common'
 import { AppConfigService } from './shared/app-config.service';
 import { StatsComponent } from './components/stats/stats.component';
 import { SummaryComponent } from './components/summary/summary.component';
+import { InfectionStatsComponent } from './components/infection-stats/infection-stats.component';
+import { PatientStatsComponent } from './components/patient-stats/patient-stats.component';
+import { PunemapComponent } from './components/punemap/punemap.component';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -32,6 +35,9 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     TimePipe,
     StatsComponent,
     SummaryComponent,
+    InfectionStatsComponent,
+    PatientStatsComponent,
+    PunemapComponent,
   ],
   imports: [
     BrowserModule,

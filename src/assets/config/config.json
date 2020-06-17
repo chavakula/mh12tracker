@@ -7,6 +7,7 @@
   "summarygraphs": "district-summary-range.json",
   "patientSummary": "patient-summary-delta.json",
   "summaryDeltaGraph": "district-delta-graph.json",
+  "patientSummaryGraph": "patient-summary-graph.json",
   "zoneApiUrl": "https://data.geoiq.io/dataapis/v1.0/covid/locationcheck",
   "nearByApiUrl": "https://data.geoiq.io/dataapis/v1.0/covid/nearbyzones",
   "apiKey": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtYWlsSWRlbnRpdHkiOiJ2Ym9yb2xlQGdtYWlsLmNvbSJ9.zrjzrluQQ0d7wFWhH6BM1b5IjLIRzztYfyMw4orPjds",

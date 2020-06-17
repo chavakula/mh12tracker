@@ -1,0 +1,31 @@
+/* just the line */
+.sparkline {
+    stroke: red;
+    fill: none;
+  }
+  
+  /* line with highlight area */
+  .sparkline {
+    stroke: red;
+    fill: rgba(255, 0, 0, .3);
+  }
+  
+  /* change the spot color */
+  .sparkline--spot {
+    stroke: blue;
+    fill: blue;
+  }
+  
+  /* change the cursor color */
+  .sparkline--cursor {
+    stroke: orange;
+  }
+  
+  /* style fill area and line colors using specific class name */
+  .sparkline--fill {
+    fill: rgba(255, 0, 0, .3);
+  }
+  
+  .sparkline--line {
+    stroke: red;
+  }

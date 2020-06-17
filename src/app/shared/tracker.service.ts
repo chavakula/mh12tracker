@@ -21,6 +21,7 @@ export class TrackerService {
   zoneApi: string = appGlobals.SETTINGS.zoneApiUrl;
   nearByApiUrl: string = appGlobals.SETTINGS.nearByApiUrl;
   patientSummaryApiUrl: string = appGlobals.SETTINGS.patientSummary+"?v="+this.epoch;
+  patientSummaryGraphApi: string = appGlobals.SETTINGS.patientSummaryGraph+"?v="+this.epoch;
 
   const;
   httpOptions = {
@@ -150,6 +151,17 @@ export class TrackerService {
   }
 
 
+  /**
+   * Get patient summary
+  */
+
+ getSummaryPatientsGraph(): Observable<any>{
+  let API_URL = `${this.baseApiUrl}${this.patientSummaryGraphApi}`;
+  return this.httpClient.get(API_URL)
+    .pipe(
+      catchError(this.error)
+    )
+}
 
 
   // Handle Errors

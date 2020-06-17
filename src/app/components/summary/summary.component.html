@@ -7,8 +7,10 @@
            <path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
            <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
            <circle cx="8" cy="4.5" r="1"/>
-        </svg> Testing & Patients summary
+        </svg> Sample Testing & Patients Trend For Pune
       </div>
+      <div>&nbsp;</div>
+      <div class="text-center"><button type="button" class="btn btn-sm btn-outline-secondary ml-2" (click)="openScrollableContent(trendContent)">Click For Trends</button></div>
       <div class="card-body">
         <div class="container">
           <div class="row">
@@ -23,7 +25,7 @@
                 </div>
             </div>
 
-            <div class="col" style="position:relative;padding:0px">
+            <!--<div class="col" style="position:relative;padding:0px">
                 <div class="canimate text-center">
                   <h5>IN Quarantine</h5>
                   {{testingSummary.DeltaInQuarantine || '-'}}
@@ -32,7 +34,7 @@
                   <h4>{{testingSummary.PatientSummary[0].InQuarantine || 'NA'}}</h4>
                   <div>&nbsp;</div>
                 </div>
-            </div>
+            </div>-->
 
             <div class="col" style="position:relative;padding:0px">
                 <div class="canimate icu text-center">
@@ -61,3 +63,66 @@
     </div>
     <!-- Testing & Patients summary ends -->
   </div>
+
+
+  <div class="row" *ngIf="testingSummary.PatientSummary!=null">
+    <!-- Testing & Patients summary starts -->
+    <div>&nbsp;</div>
+    <div class="card bg-light mb-3" style="width:100%;">
+      <div class="card-header">
+        <svg class="bi bi-info-circle" width="1.4em" height="1.4em" viewBox="0 0 18 18" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+           <path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+           <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+           <circle cx="8" cy="4.5" r="1"/>
+        </svg> Samples Tested: Pune Vs Maharashtra Vs India
+      </div>
+      <div class="card-body">
+        <div class="container">
+          <div class="row">
+            <div class="col" style="position:relative;padding:0px">
+                <div class="canimate deaths text-center">
+                  <h5>PUNE</h5>
+                  <h4>{{testingSummary.PatientSummary[0].TotalTests | number}}</h4>
+                  <div class="confirm">+ve<br>({{puneMeta.puneconfirm | number}})</div>
+                  <div>&nbsp;</div>
+                </div>
+            </div>
+            <div class="col" style="position:relative;padding:0px">
+                <div class="canimate deaths text-center">
+                  <h5>MAHARASHTRA</h5>
+                  <h4>{{puneMeta.mahatests | number}}</h4>
+                  <div class="confirm">+ve<br>({{puneMeta.mahaconfirm | number}})</div>
+                  <div>&nbsp;</div>
+                </div>
+            </div>
+
+            <div class="col" style="position:relative;padding:0px">
+                <div class="canimate deaths text-center">
+                  <h5>INDIA</h5>
+                  <h4>{{puneMeta.indiatests | number}}</h4>
+                  <div class="confirm">+ve<br>({{puneMeta.indiaconfirm | number}})</div>
+                  <div>&nbsp;</div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Testing & Patients summary ends -->
+  </div>
+
+
+  <ng-template #trendContent let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Pune Coronavirus patients trends</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body canimate">
+          <app-patient-stats></app-patient-stats>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>
