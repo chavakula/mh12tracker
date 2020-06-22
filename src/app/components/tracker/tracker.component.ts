@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { Meta } from '@angular/platform-browser';
 import { DatePipe } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import * as d3 from "d3";
 
 @Component({
   selector: 'app-tracker',
@@ -220,6 +220,10 @@ export class TrackerComponent implements OnInit {
     this.dataservice.getSummaryDeltaGraph().subscribe(data=>{
       //setTimeout(function(){ console.log("log"); }, 3000);
       // populate timeseries data for active,death,confirm,recovered
+      let cdata = [];
+      let adata = [];
+      let rdata = [];
+      let ddata = [];
 
       data.forEach(row => {
           this.labels.push(this.datePipe.transform(row.CreatedAt, 'dd-MMM'));
@@ -227,178 +231,100 @@ export class TrackerComponent implements OnInit {
           this.activeData.push(row.DeltaActive);
           this.deathData.push(row.DeltaDeath);
           this.recoverData.push(row.DeltaRecovered);
-          this.points.push(0);
+          //this.points.push(0);
+
+          // D3 sparkline
+          cdata.push({date: row.CreatedAt, value: row.DeltaConfirmed});
+          adata.push({date: row.CreatedAt, value: row.DeltaActive});
+          rdata.push({date: row.CreatedAt, value: row.DeltaRecovered});
+          ddata.push({date: row.CreatedAt, value: row.DeltaDeath});
+
       });
       
       this.demotest = this.confirmData.toString();
+
+      //////////////////////////////
+
+      this.drawSparklines(80, 40, "path1", ".sparkline-wrapper-confirmed",cdata, "confirmpath");
+      this.drawSparklines(80, 40, "path2", ".sparkline-wrapper-active",adata, "activepath");
+      this.drawSparklines(80, 40, "path3", ".sparkline-wrapper-recover",rdata, "recoverpath");
+      this.drawSparklines(80, 40, "path4", ".sparkline-wrapper-death",ddata, "deathpath");
+
+      //////////////////////////////
     
-      // to show last dot on graph
-      this.points[this.points.length-1] = 1.5;
-    
-      // Confirm Data
-      this.confirmChart = new Chart('confirm', {
-           type: 'line',
-           data: {
-            labels: this.labels,
-            datasets: [
-              {
-                data: this.confirmData,
-                borderColor: '#ff073a',
-                fill: false,
-                pointRadius: this.points,
-                borderWidth: 2.8
-              }
-             ]
-            },
-            options: {
-            tooltips: {enabled: false},
-            hover: {mode: null},
-            padding: {
-              bottom: 5,
-              top:5,
-              left: 5,
-              right: 5
-            },
-            responsive: true,
-            legend: {
-              display: false
-            },
-            scales: {
-              xAxes: [{
-                display: false,
-                offset: true
-              }],
-              yAxes: [{
-                display: false
-              }],
-            }
-          }
-      });
-
-      // active chart
-      this.activeChart = new Chart('active', {
-           type: 'line',
-           data: {
-            labels: this.labels,
-            datasets: [
-              {
-                data: this.activeData,
-                borderColor: '#007bff',
-                fill: false,
-                pointRadius: this.points,
-                borderWidth: 2.8
-              }
-             ]
-            },
-            options: {
-            tooltips: {enabled: false},
-            hover: {mode: null},
-            padding: {
-              bottom: 5,
-              top:5,
-              left: 5,
-              right: 5
-            },
-            responsive: true,
-            legend: {
-              display: false
-            },
-            scales: {
-              xAxes: [{
-                display: false,
-                offset: true
-              }],
-              yAxes: [{
-                display: false
-              }],
-            }
-          }
-      });
-
-      // recovered charts
-      this.recoverChart = new Chart('recover', {
-           type: 'line',
-           data: {
-            labels: this.labels,
-            datasets: [
-              {
-                data: this.recoverData,
-                borderColor: '#28a745',
-                fill: false,
-                pointRadius: this.points,
-                borderWidth: 2.8
-              }
-             ]
-            },
-            options: {
-            tooltips: {enabled: false},
-            hover: {mode: null},
-            layout: {
-              padding: {
-                bottom: 5,
-                top:5,
-                left: 5,
-                right: 5
-              }
-            },
-            responsive: true,
-            legend: {
-              display: false
-            },
-            scales: {
-              xAxes: [{
-                display: false,
-                offset: true
-              }],
-              yAxes: [{
-                display: false
-              }],
-            }
-          }
-      });
-
-      // death charts
-      this.deathChart = new Chart('death', {
-           type: 'line',
-           data: {
-            labels: this.labels,
-            datasets: [
-              {
-                data: this.deathData,
-                borderColor: '#6c757d',
-                fill: false,
-                pointRadius: this.points,
-                borderWidth: 2.8
-              }
-             ]
-            },
-            options: {
-            tooltips: {enabled: false},
-            hover: {mode: null},
-            padding: {
-              bottom: 5,
-              top:5,
-              left: 5,
-              right: 5
-            },
-            responsive: true,
-            legend: {
-              display: false
-            },
-            scales: {
-              xAxes: [{
-                display: false,
-                offset: true
-              }],
-              yAxes: [{
-                display: false
-              }],
-            }
-          }
-      });
       this.graphLoading = false;
     });
   }
   // end of init function
+
+
+
+  // d3 sparkline function
+  drawSparklines(width: number, height: number, pathid: string, svgid: string, data: any, css: string){
+    
+    var margin = {top: 10, right: 10, bottom: 10, left: 0};
+    var parseTime = d3.timeParse("%B %d, %Y");
+
+    // set the ranges
+    var x = d3.scaleTime().range([0, width]);
+    var y = d3.scaleLinear().range([height, 0]);
+
+    var y_min = d3.min(data, function(d) { return d.value });
+    var y_max = d3.max(data, function(d) { return d.value });
+    
+    var datestart = d3.min(data, function(d) { return new Date(d.date); });
+		var dateend = d3.max(data, function(d) { return new Date(d.date); });
+
+    x.domain([datestart, dateend]);
+		y.domain([y_min, y_max]);
+    
+    // define the line
+    var valueline = d3.line().curve(d3.curveMonotoneX)
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.value); });
+
+    var svg = d3.select(svgid).append("svg")
+									.attr("width", width + margin.left + margin.right)
+									.attr("height", height + margin.top + margin.bottom)
+									.append("g")
+									.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    // format the data
+    data.forEach(function(d) {
+      d.date = new Date(d.date);
+      d.value = +d.value;
+    });
+
+    // Add the valueline path.
+    svg.append("path")
+      .datum(data)
+      .attr("id",pathid)
+      .attr("class", css)
+      .attr("d", valueline);
+
+      // calculate length of path
+      var totalLength = d3.select("#"+pathid).node().getTotalLength();
+      
+      // set animation
+      d3.select("#"+pathid)
+      .attr("stroke-dasharray", totalLength + " " + totalLength)
+      .attr("stroke-dashoffset", totalLength)
+      .transition()
+        .duration(2000)
+        .ease(d3.easeLinear)
+        .attr("stroke-dashoffset", 2);
+      
+      // append circle at end
+      svg.append('circle')
+      .attr('class', 'sparkcircle')
+      .attr('cx', x(data[data.length-1].date))
+      .attr('cy', y(data[data.length-1].value))
+      .style("opacity",0)
+      .attr('r', 2);  
+
+      // enable opacity after line animation completes
+      svg.select(".sparkcircle").transition().delay(2000).duration(1000/1.5).style("opacity",1);
+
+  }
 
 }

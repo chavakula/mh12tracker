@@ -193,6 +193,63 @@ h4{
 }
 
 .recoveredbubble:hover{
+stroke: black;
+stroke-width: 0.5px;
+}
+
+.confirmedbubble:hover{
   stroke: black;
   stroke-width: 0.5px;
+}
+
+.containbubble:hover{
+  stroke: white;
+  stroke-width: 0.5px;
+}
+
+/**********************SPARKLINE***********************/
+
+.sparkcircle {
+  fill: black;
+  stroke: none;
+}
+
+.sparkline {
+  fill: none;
+  stroke: #000;
+  stroke-width: 0.5px;
+}
+
+.sparkline-wrapper{
+  position: relative;
+  display: inline-block;
+  height: 40px;
+  cursor:pointer;
+  width:70%;
+  color: black;
+  margin-bottom: 15px;
+}
+
+.recoverpath {
+  fill: none;
+  stroke: #28a745;
+  stroke-width: 2px;
+}
+
+.activepath {
+  fill: none;
+  stroke: #007bff;
+  stroke-width: 2px;
+}
+
+.deathpath {
+  fill: none;
+  stroke: #6c757d;
+  stroke-width: 2px;
+}
+
+.confirmpath {
+  fill: none;
+  stroke:#ff073a;
+  stroke-width: 2px;
 }

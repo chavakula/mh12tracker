@@ -63,8 +63,11 @@
                            <path fill-rule="evenodd" d="M8 4.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
                          </svg>
                          <h4 *ngIf="!summaryLoading">{{summaryDetails.DistrictCases[0].Confirmed || 'NA'}}</h4>
-                         <div>&nbsp;</div>
-                         <div [hidden]="graphLoading" style="position:relative; width:80px;margin:auto;"><canvas id="confirm">{{ confirmChart }}</canvas></div>
+                         <!--<div>&nbsp;</div>-->
+                         <div [hidden]="graphLoading" style="position:relative;margin:auto;">
+                          <!--<canvas id="confirm">{{ confirmChart }}</canvas>-->
+                          <div class="sparkline-wrapper-confirmed"></div>
+                        </div>
                        </div>
                    </div>
 
@@ -81,8 +84,11 @@
                            <path fill-rule="evenodd" d="M8 4.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
                          </svg>
                          <h4 *ngIf="!summaryLoading">{{summaryDetails.DistrictCases[0].Active || 'NA'}}</h4>
-                         <div>&nbsp;</div>
-                         <div [hidden]="graphLoading" style="position:relative; width:80px;margin:auto;"><canvas id="active">{{ activeChart }}</canvas></div>
+                         <!--<div>&nbsp;</div>-->
+                         <div [hidden]="graphLoading" style="position:relative;margin:auto;">
+                           <!--<canvas id="active">{{ activeChart }}</canvas>-->
+                           <div class="sparkline-wrapper-active"></div>
+                         </div>
                        </div>
                    </div>
 
@@ -99,8 +105,11 @@
                            <path fill-rule="evenodd" d="M8 4.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
                          </svg>
                          <h4 *ngIf="!summaryLoading">{{summaryDetails.DistrictCases[0].Recovered || 'NA'}}</h4>
-                         <div>&nbsp;</div>
-                         <div [hidden]="graphLoading" class="text-center" style="position:relative; width:80px;margin:auto;"><canvas id="recover">{{ recoverChart }}</canvas></div>
+                         <!--<div>&nbsp;</div>-->
+                         <div [hidden]="graphLoading" class="text-center" style="position:relative;margin:auto;">
+                           <!--<canvas id="recover">{{ recoverChart }}</canvas>-->
+                           <div class="sparkline-wrapper-recover"></div>
+                        </div>
                        </div>
                    </div>
                    <div class="col" style="position:relative;padding:0px">
@@ -112,8 +121,11 @@
                              <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 01.708 0l3 3a.5.5 0 01-.708.708L8 5.707 5.354 8.354a.5.5 0 11-.708-.708l3-3z" clip-rule="evenodd"/>
                          </svg>
                          <h4 *ngIf="!summaryLoading">{{summaryDetails.DistrictCases[0].Death || 'NA'}}</h4>
-                         <div>&nbsp;</div>
-                         <div [hidden]="graphLoading" style="position:relative; width:80px;margin:auto;"><canvas  id="death">{{ deathChart }}</canvas></div>
+                         <!--<div>&nbsp;</div>-->
+                         <div [hidden]="graphLoading" style="position:relative;margin:auto;">
+                           <!--<canvas  id="death">{{ deathChart }}</canvas>-->
+                           <div class="sparkline-wrapper-death"></div>
+                         </div>
                        </div>
                    </div>
                  </div>
@@ -197,7 +209,9 @@
      <div class="row">
       <div class="col">
         <div class="text-center">
-            <app-punemap></app-punemap>
+          <div *ngIf="(summaryDetails | json) != '{}' && (summaryPatients | json) != '{}'">
+            <app-punemap [summarydetails] = "summaryDetails"></app-punemap>
+          </div>
         </div>
       </div>
      </div>

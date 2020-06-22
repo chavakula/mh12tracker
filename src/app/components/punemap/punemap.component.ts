@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import * as d3 from "d3"
 import * as topojson from "topojson";
 import { Observable } from 'rxjs/internal/Observable';
@@ -10,81 +10,96 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class PunemapComponent implements OnInit {
 
-  private height: number = 380;
-  private  width: number  = 380;
+  private height: number = 375;
+  private  width: number  = 375;
   private locationset: any = [];
+  
+  @Input() summarydetails: any;
 
+  private containmentZones = [
+    {long: 73.8545463, lat: 18.4930424, cases: 50, area: "S.T colony, Parvati Paytha"},
+    {long: 73.8554097, lat: 18.4960206, cases: 50, area: "Laxminarayan Theater"},
+    {long: 73.8367257, lat: 18.4872008, cases: 100, area: "Parvati Darshan"},
+    {long: 73.8367257, lat: 18.4872004, cases: 50, area: "Hotel Panchami, Parvati Paytha"},
+    {long: 73.8465563, lat: 18.4967603, cases: 50, area: "Velankar Nagar, Parvati Paytha"},
+    {long: 73.8446469, lat: 18.501517, cases: 50, area: "Dandekar Pul Vasahat"},
+    {long: 73.8475243, lat: 18.504401, cases: 50, area: "Ambil Odha Colony"},
+    {long: 73.8452863, lat: 18.493548, cases: 50, area: "Mahatma Phule Vasahat & Laxmi Nagar, Parvati Paytha"}
+  ]
 
   private confirmedMarkers = [
-    {long: 73.8859, lat: 18.5105, cases: 425, area: "Pune Cantonment"},
-    {long: 73.8735123, lat: 18.5360328, cases: 1679, area: "Dhole Patil Road"},
-    {long: 73.9052891, lat: 18.5570334, cases: 358, area: "Nagar Road - Wadgoansheri"},
-    {long: 73.812654, lat: 18.5609177, cases: 217, area: "Aundh Baner"},
-    {long: 73.8072235, lat: 18.5012357, cases: 93, area: "Kothrud - Bavdhan"},
-    {long: 73.8215563, lat: 18.498383, cases: 67, area: "Warje - Karve Nagar"},
-    {long: 73.8864692, lat: 18.5454903, cases: 1049, area: "Yerwada - Kalas - Dhanori"},
-    {long: 73.8874883, lat: 18.471762, cases: 183, area: "Kondhwa - Yewalewadi"},
-    {long: 73.8678985, lat: 18.5087575, cases: 917, area: "Bhawani Peth"},
-    {long: 73.9324013, lat: 18.49994, cases: 380, area: "Hadapsar Mundhwa"},
-    {long: 73.8556604, lat: 18.4890336, cases: 565, area: "Bibwewadi"},
-    {long: 73.8556317, lat: 18.4554342, cases: 358, area: "Dhankawadi - Sahakarnagar"},
-    {long: 73.8442432, lat: 18.4852537, cases: 434, area: "Singhagad Road"},
-    {long: 73.9083849, lat: 18.5016267, cases: 671, area: "Wanawadi - Ramtekdi"},
-    {long: 73.8566656, lat: 18.5236091, cases: 945, area: "Kasba - Visharambaghwada"},
-    {long: 73.8247899, lat: 18.5329442, cases: 751, area: "Shivaji Nagar - Ghole Road"},
-    {long: 73.9477, lat: 18.5258, cases:403, area: "Pune Rural" }
+    {long: 73.8859, lat: 18.5105, cases: 463, area: "Pune Cantonment"},
+    {long: 73.8735123, lat: 18.5360328, cases: 1801, area: "Dhole Patil Road"},
+    {long: 73.9052891, lat: 18.5570334, cases: 407, area: "Nagar Road - Wadgoansheri"},
+    {long: 73.812654, lat: 18.5609177, cases: 302, area: "Aundh Baner"},
+    {long: 73.8072235, lat: 18.5012357, cases: 184, area: "Kothrud - Bavdhan"},
+    {long: 73.8215563, lat: 18.498383, cases: 97, area: "Warje - Karve Nagar"},
+    {long: 73.8864692, lat: 18.5454903, cases: 1133, area: "Yerwada - Kalas - Dhanori"},
+    {long: 73.8874883, lat: 18.471762, cases: 252, area: "Kondhwa - Yewalewadi"},
+    {long: 73.8678985, lat: 18.5087575, cases: 1001, area: "Bhawani Peth"},
+    {long: 73.9324013, lat: 18.49994, cases: 479, area: "Hadapsar Mundhwa"},
+    {long: 73.8556604, lat: 18.4890336, cases: 643, area: "Bibwewadi"},
+    {long: 73.8556317, lat: 18.4554342, cases: 459, area: "Dhankawadi - Sahakarnagar"},
+    {long: 73.8442432, lat: 18.4852537, cases: 572, area: "Singhagad Road"},
+    {long: 73.9083849, lat: 18.5016267, cases: 784, area: "Wanawadi - Ramtekdi"},
+    {long: 73.8566656, lat: 18.5236091, cases: 1129, area: "Kasba - Visharambaghwada"},
+    {long: 73.8247899, lat: 18.5329442, cases: 918, area: "Shivaji Nagar - Ghole Road"},
+    {long: 73.9477, lat: 18.5258, cases: 493, area: "Pune Rural" }
   ];
 
 
   private recoveredMarker = [
     {long: 73.8859, lat: 18.5105, cases: 0, area: "Pune Cantonment"},
-    {long: 73.8735123, lat: 18.5360328, cases: 1129, area: "Dhole Patil Road"},
-    {long: 73.9052891, lat: 18.5570334, cases: 147, area: "Nagar Road - Wadgoansheri"},
-    {long: 73.812654, lat: 18.5609177, cases: 18, area: "Aundh Baner"},
-    {long: 73.8072235, lat: 18.5012357, cases: 22, area: "Kothrud - Bavdhan"},
-    {long: 73.8215563, lat: 18.498383, cases: 34, area: "Warje - Karve Nagar"},
-    {long: 73.8864692, lat: 18.5454903, cases: 609, area: "Yerwada - Kalas - Dhanori"},
-    {long: 73.8874883, lat: 18.471762, cases: 82, area: "Kondhwa - Yewalewadi"},
-    {long: 73.8678985, lat: 18.5087575, cases: 666, area: "Bhawani Peth"},
-    {long: 73.9324013, lat: 18.49994, cases: 147, area: "Hadapsar Mundhwa"},
-    {long: 73.8556604, lat: 18.4890336, cases: 309, area: "Bibwewadi"},
-    {long: 73.8556317, lat: 18.4554342, cases: 224, area: "Dhankawadi - Sahakarnagar"},
-    {long: 73.8442432, lat: 18.4852537, cases: 73, area: "Singhagad Road"},
-    {long: 73.9083849, lat: 18.5016267, cases: 242, area: "Wanawadi - Ramtekdi"},
-    {long: 73.8566656, lat: 18.5236091, cases: 475, area: "Kasba - Visharambaghwada"},
-    {long: 73.8247899, lat: 18.5329442, cases: 440, area: "Shivaji Nagar - Ghole Road"},
-    {long: 73.9477, lat: 18.5258, cases:191, area: "Pune Rural" }
+    {long: 73.8735123, lat: 18.5360328, cases: 1436, area: "Dhole Patil Road"},
+    {long: 73.9052891, lat: 18.5570334, cases: 222, area: "Nagar Road - Wadgoansheri"},
+    {long: 73.812654, lat: 18.5609177, cases: 102, area: "Aundh Baner"},
+    {long: 73.8072235, lat: 18.5012357, cases: 42, area: "Kothrud - Bavdhan"},
+    {long: 73.8215563, lat: 18.498383, cases: 42, area: "Warje - Karve Nagar"},
+    {long: 73.8864692, lat: 18.5454903, cases: 792, area: "Yerwada - Kalas - Dhanori"},
+    {long: 73.8874883, lat: 18.471762, cases: 121, area: "Kondhwa - Yewalewadi"},
+    {long: 73.8678985, lat: 18.5087575, cases: 734, area: "Bhawani Peth"},
+    {long: 73.9324013, lat: 18.49994, cases: 254, area: "Hadapsar Mundhwa"},
+    {long: 73.8556604, lat: 18.4890336, cases: 420, area: "Bibwewadi"},
+    {long: 73.8556317, lat: 18.4554342, cases: 268, area: "Dhankawadi - Sahakarnagar"},
+    {long: 73.8442432, lat: 18.4852537, cases: 200, area: "Singhagad Road"},
+    {long: 73.9083849, lat: 18.5016267, cases: 374, area: "Wanawadi - Ramtekdi"},
+    {long: 73.8566656, lat: 18.5236091, cases: 650, area: "Kasba - Visharambaghwada"},
+    {long: 73.8247899, lat: 18.5329442, cases: 545, area: "Shivaji Nagar - Ghole Road"},
+    {long: 73.9477, lat: 18.5258, cases: 257, area: "Pune Rural" }
   ];
 
   private activeMarker = [
+
     {long: 73.8859, lat: 18.5105, cases: 0, area: "Pune Cantonment"},
-    {long: 73.8735123, lat: 18.5360328, cases: 295, area: "Dhole Patil Road"},
-    {long: 73.9052891, lat: 18.5570334, cases: 144, area: "Nagar Road - Wadgoansheri"},
-    {long: 73.812654, lat: 18.5609177, cases: 170, area: "Aundh Baner"},
-    {long: 73.8072235, lat: 18.5012357, cases: 59, area: "Kothrud - Bavdhan"},
-    {long: 73.8215563, lat: 18.498383, cases: 27, area: "Warje - Karve Nagar"},
-    {long: 73.8864692, lat: 18.5454903, cases: 268, area: "Yerwada - Kalas - Dhanori"},
-    {long: 73.8874883, lat: 18.471762, cases: 80, area: "Kondhwa - Yewalewadi"},
-    {long: 73.8678985, lat: 18.5087575, cases: 132, area: "Bhawani Peth"},
-    {long: 73.9324013, lat: 18.49994, cases: 139, area: "Hadapsar Mundhwa"},
-    {long: 73.8556604, lat: 18.4890336, cases: 146, area: "Bibwewadi"},
-    {long: 73.8556317, lat: 18.4554342, cases: 93, area: "Dhankawadi - Sahakarnagar"},
-    {long: 73.8442432, lat: 18.4852537, cases: 276, area: "Singhagad Road"},
-    {long: 73.9083849, lat: 18.5016267, cases: 246, area: "Wanawadi - Ramtekdi"},
-    {long: 73.8566656, lat: 18.5236091, cases: 318, area: "Kasba - Visharambaghwada"},
-    {long: 73.8247899, lat: 18.5329442, cases: 190, area: "Shivaji Nagar - Ghole Road"},
-    {long: 73.9477, lat: 18.5258, cases:146, area: "Pune Rural" }
+    {long: 73.8735123, lat: 18.5360328, cases: 318, area: "Dhole Patil Road"},
+    {long: 73.9052891, lat: 18.5570334, cases: 170, area: "Nagar Road - Wadgoansheri"},
+    {long: 73.812654, lat: 18.5609177, cases: 196, area: "Aundh Baner"},
+    {long: 73.8072235, lat: 18.5012357, cases: 136, area: "Kothrud - Bavdhan"},
+    {long: 73.8215563, lat: 18.498383, cases: 50, area: "Warje - Karve Nagar"},
+    {long: 73.8864692, lat: 18.5454903, cases: 253, area: "Yerwada - Kalas - Dhanori"},
+    {long: 73.8874883, lat: 18.471762, cases: 122, area: "Kondhwa - Yewalewadi"},
+    {long: 73.8678985, lat: 18.5087575, cases: 203, area: "Bhawani Peth"},
+    {long: 73.9324013, lat: 18.49994, cases: 206, area: "Hadapsar Mundhwa"},
+    {long: 73.8556604, lat: 18.4890336, cases: 192, area: "Bibwewadi"},
+    {long: 73.8556317, lat: 18.4554342, cases: 173, area: "Dhankawadi - Sahakarnagar"},
+    {long: 73.8442432, lat: 18.4852537, cases: 360, area: "Singhagad Road"},
+    {long: 73.9083849, lat: 18.5016267, cases: 370, area: "Wanawadi - Ramtekdi"},
+    {long: 73.8566656, lat: 18.5236091, cases: 437, area: "Kasba - Visharambaghwada"},
+    {long: 73.8247899, lat: 18.5329442, cases: 346, area: "Shivaji Nagar - Ghole Road"},
+    {long: 73.9477, lat: 18.5258, cases:205, area: "Pune Rural" }
   ];
 
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
 
-    var map = d3.json('assets/pune.topojson');
+     var map = d3.json('assets/pune.topojson');
      var sqrtScale = d3.scaleSqrt().domain([0, 1900]).range([0, 30]);
 
      Promise.all([map]).then(data => {
+
+      var summaryData = this.summarydetails;
 
       let mapData = data[0]
        let geoData = topojson.feature(mapData, mapData.objects["PuneWards"]).features;
@@ -103,8 +118,6 @@ export class PunemapComponent implements OnInit {
         .append('path')
         .attr('d', path)
         .attr("class","path")
-
-
 
         // add confirmed cases
         svg.selectAll(".ward")
@@ -130,7 +143,7 @@ export class PunemapComponent implements OnInit {
           })
           .on("mouseout",function(d){
             d3.select("#title").text("Pune Confirmed Cases");
-            d3.select("#cases").text("10,643");
+            d3.select("#cases").text(summaryData.DistrictCases[0].Confirmed);
           });
 
 
@@ -158,7 +171,7 @@ export class PunemapComponent implements OnInit {
             })
             .on("mouseout",function(d){
               d3.select("#title").text("Pune Recovered Cases").style("color","green");
-              d3.select("#cases").text("6713");
+              d3.select("#cases").text(summaryData.DistrictCases[0].Recovered);
             });
 
 
@@ -186,7 +199,7 @@ export class PunemapComponent implements OnInit {
             })
             .on("mouseout",function(d){
               d3.select("#title").text("Pune Active Cases").style("color","#007bff");
-              d3.select("#cases").text("3449");
+              d3.select("#cases").text(summaryData.DistrictCases[0].Active);
             });
 
 
@@ -216,15 +229,33 @@ export class PunemapComponent implements OnInit {
             });
         }
 
-
-
-            // update bubble function
+          // update bubble function
           function update(){             
             d3.selectAll(".checkbox").each(function(d){
               let cb = d3.select(this);
               let grp = cb.property("value")
               if(cb.property("checked")){
                 svg.selectAll("."+grp).transition().duration(1000).style("opacity", 1).attr("r", function(d){ return sqrtScale(d.cases); })
+                if(grp == 'confirmedbubble'){
+                  d3.select("#title").text("Pune Confirmed Cases").style("color","#ff073a");
+                  d3.select("#cases").text(summaryData.DistrictCases[0].Confirmed);
+                }
+
+                if(grp == 'activebubble'){
+                  d3.select("#title").text("Pune Active Cases").style("color","#007bff");
+                  d3.select("#cases").text(summaryData.DistrictCases[0].Active);
+                }
+
+                if(grp == 'recoveredbubble'){
+                  d3.select("#title").text("Pune Recovered Cases").style("color","green");
+                  d3.select("#cases").text(summaryData.DistrictCases[0].Recovered);
+                }
+
+                if(grp == 'containbubble'){
+                  d3.select("#title").text("Pune Containment Zones").style("color","orange");
+                  d3.select("#cases").text("Area");
+                }
+
               }else{
                 svg.selectAll("."+grp).transition().duration(1000).style("opacity", 0).attr("r", 0)
               }
