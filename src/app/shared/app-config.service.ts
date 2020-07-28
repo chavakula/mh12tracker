@@ -28,6 +28,7 @@ export class AppConfigService {
                 appGlobals.SETTINGS.summaryDeltaGraph = data["summaryDeltaGraph"];
                 appGlobals.SETTINGS.nearByApiUrl = data["nearByApiUrl"];
                 appGlobals.SETTINGS.nearByRadius = data["nearByRadius"];
+                appGlobals.SETTINGS.summaryPcmcApiUrl = data["summaryPcmcjson"];
             });
     }
 

@@ -3,6 +3,7 @@
   "metajson": "meta-details.json",
   "newsjson": "punenews.json",
   "summaryjson": "district-summary-latest.json",
+  "summaryPcmcjson": "pcmc-cases.json",
   "wardjson": "ward-all-cases.json",
   "summarygraphs": "district-summary-range.json",
   "patientSummary": "patient-summary-delta.json",

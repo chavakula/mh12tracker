@@ -28,65 +28,65 @@ export class PunemapComponent implements OnInit {
   ]
 
   private confirmedMarkers = [
-    {long: 73.8859, lat: 18.5105, cases: 463, area: "Pune Cantonment"},
-    {long: 73.8735123, lat: 18.5360328, cases: 1801, area: "Dhole Patil Road"},
-    {long: 73.9052891, lat: 18.5570334, cases: 407, area: "Nagar Road - Wadgoansheri"},
-    {long: 73.812654, lat: 18.5609177, cases: 302, area: "Aundh Baner"},
-    {long: 73.8072235, lat: 18.5012357, cases: 184, area: "Kothrud - Bavdhan"},
-    {long: 73.8215563, lat: 18.498383, cases: 97, area: "Warje - Karve Nagar"},
-    {long: 73.8864692, lat: 18.5454903, cases: 1133, area: "Yerwada - Kalas - Dhanori"},
-    {long: 73.8874883, lat: 18.471762, cases: 252, area: "Kondhwa - Yewalewadi"},
-    {long: 73.8678985, lat: 18.5087575, cases: 1001, area: "Bhawani Peth"},
-    {long: 73.9324013, lat: 18.49994, cases: 479, area: "Hadapsar Mundhwa"},
-    {long: 73.8556604, lat: 18.4890336, cases: 643, area: "Bibwewadi"},
-    {long: 73.8556317, lat: 18.4554342, cases: 459, area: "Dhankawadi - Sahakarnagar"},
-    {long: 73.8442432, lat: 18.4852537, cases: 572, area: "Singhagad Road"},
-    {long: 73.9083849, lat: 18.5016267, cases: 784, area: "Wanawadi - Ramtekdi"},
-    {long: 73.8566656, lat: 18.5236091, cases: 1129, area: "Kasba - Visharambaghwada"},
-    {long: 73.8247899, lat: 18.5329442, cases: 918, area: "Shivaji Nagar - Ghole Road"},
-    {long: 73.9477, lat: 18.5258, cases: 493, area: "Pune Rural" }
+    {long: 73.8859, lat: 18.5105, cases: 756, area: "Pune Cantonment"},
+    {long: 73.8735123, lat: 18.5360328, cases: 3682, area: "Dhole Patil Road"},
+    {long: 73.9052891, lat: 18.5570334, cases: 2269, area: "Nagar Road - Wadgoansheri"},
+    {long: 73.812654, lat: 18.5609177, cases: 2385, area: "Aundh Baner"},
+    {long: 73.8072235, lat: 18.5012357, cases: 2503, area: "Kothrud - Bavdhan"},
+    {long: 73.8215563, lat: 18.498383, cases: 2818, area: "Warje - Karve Nagar"},
+    {long: 73.8864692, lat: 18.5454903, cases: 2833, area: "Yerwada - Kalas - Dhanori"},
+    {long: 73.8874883, lat: 18.471762, cases: 1832, area: "Kondhwa - Yewalewadi"},
+    {long: 73.8678985, lat: 18.5087575, cases: 2768, area: "Bhawani Peth"},
+    {long: 73.9324013, lat: 18.49994, cases: 3716, area: "Hadapsar Mundhwa"},
+    {long: 73.8556604, lat: 18.4890336, cases: 2948, area: "Bibwewadi"},
+    {long: 73.8556317, lat: 18.4554342, cases: 3085, area: "Dhankawadi - Sahakarnagar"},
+    {long: 73.8442432, lat: 18.4852537, cases: 2948, area: "Singhagad Road"},
+    {long: 73.9083849, lat: 18.5016267, cases: 2234, area: "Wanawadi - Ramtekdi"},
+    {long: 73.8566656, lat: 18.5236091, cases: 4371, area: "Kasba - Visharambaghwada"},
+    {long: 73.8247899, lat: 18.5329442, cases: 2453, area: "Shivaji Nagar - Ghole Road"},
+    {long: 73.9477, lat: 18.5258, cases: 3408, area: "Pune Rural" }
   ];
 
 
   private recoveredMarker = [
-    {long: 73.8859, lat: 18.5105, cases: 0, area: "Pune Cantonment"},
-    {long: 73.8735123, lat: 18.5360328, cases: 1436, area: "Dhole Patil Road"},
-    {long: 73.9052891, lat: 18.5570334, cases: 222, area: "Nagar Road - Wadgoansheri"},
-    {long: 73.812654, lat: 18.5609177, cases: 102, area: "Aundh Baner"},
-    {long: 73.8072235, lat: 18.5012357, cases: 42, area: "Kothrud - Bavdhan"},
-    {long: 73.8215563, lat: 18.498383, cases: 42, area: "Warje - Karve Nagar"},
-    {long: 73.8864692, lat: 18.5454903, cases: 792, area: "Yerwada - Kalas - Dhanori"},
-    {long: 73.8874883, lat: 18.471762, cases: 121, area: "Kondhwa - Yewalewadi"},
-    {long: 73.8678985, lat: 18.5087575, cases: 734, area: "Bhawani Peth"},
-    {long: 73.9324013, lat: 18.49994, cases: 254, area: "Hadapsar Mundhwa"},
-    {long: 73.8556604, lat: 18.4890336, cases: 420, area: "Bibwewadi"},
-    {long: 73.8556317, lat: 18.4554342, cases: 268, area: "Dhankawadi - Sahakarnagar"},
-    {long: 73.8442432, lat: 18.4852537, cases: 200, area: "Singhagad Road"},
-    {long: 73.9083849, lat: 18.5016267, cases: 374, area: "Wanawadi - Ramtekdi"},
-    {long: 73.8566656, lat: 18.5236091, cases: 650, area: "Kasba - Visharambaghwada"},
-    {long: 73.8247899, lat: 18.5329442, cases: 545, area: "Shivaji Nagar - Ghole Road"},
-    {long: 73.9477, lat: 18.5258, cases: 257, area: "Pune Rural" }
+    {long: 73.8859, lat: 18.5105, cases: 550, area: "Pune Cantonment"},
+    {long: 73.8735123, lat: 18.5360328, cases: 2483, area: "Dhole Patil Road"},
+    {long: 73.9052891, lat: 18.5570334, cases: 750, area: "Nagar Road - Wadgoansheri"},
+    {long: 73.812654, lat: 18.5609177, cases: 828, area: "Aundh Baner"},
+    {long: 73.8072235, lat: 18.5012357, cases: 1571, area: "Kothrud - Bavdhan"},
+    {long: 73.8215563, lat: 18.498383, cases: 1289, area: "Warje - Karve Nagar"},
+    {long: 73.8864692, lat: 18.5454903, cases: 1749, area: "Yerwada - Kalas - Dhanori"},
+    {long: 73.8874883, lat: 18.471762, cases: 1046, area: "Kondhwa - Yewalewadi"},
+    {long: 73.8678985, lat: 18.5087575, cases: 1552, area: "Bhawani Peth"},
+    {long: 73.9324013, lat: 18.49994, cases: 1674, area: "Hadapsar Mundhwa"},
+    {long: 73.8556604, lat: 18.4890336, cases: 1616, area: "Bibwewadi"},
+    {long: 73.8556317, lat: 18.4554342, cases: 882, area: "Dhankawadi - Sahakarnagar"},
+    {long: 73.8442432, lat: 18.4852537, cases: 1837, area: "Singhagad Road"},
+    {long: 73.9083849, lat: 18.5016267, cases: 1372, area: "Wanawadi - Ramtekdi"},
+    {long: 73.8566656, lat: 18.5236091, cases: 3132, area: "Kasba - Visharambaghwada"},
+    {long: 73.8247899, lat: 18.5329442, cases: 1465, area: "Shivaji Nagar - Ghole Road"},
+    {long: 73.9477, lat: 18.5258, cases: 350, area: "Pune Rural" }
   ];
 
   private activeMarker = [
 
-    {long: 73.8859, lat: 18.5105, cases: 0, area: "Pune Cantonment"},
-    {long: 73.8735123, lat: 18.5360328, cases: 318, area: "Dhole Patil Road"},
-    {long: 73.9052891, lat: 18.5570334, cases: 170, area: "Nagar Road - Wadgoansheri"},
-    {long: 73.812654, lat: 18.5609177, cases: 196, area: "Aundh Baner"},
-    {long: 73.8072235, lat: 18.5012357, cases: 136, area: "Kothrud - Bavdhan"},
-    {long: 73.8215563, lat: 18.498383, cases: 50, area: "Warje - Karve Nagar"},
-    {long: 73.8864692, lat: 18.5454903, cases: 253, area: "Yerwada - Kalas - Dhanori"},
-    {long: 73.8874883, lat: 18.471762, cases: 122, area: "Kondhwa - Yewalewadi"},
-    {long: 73.8678985, lat: 18.5087575, cases: 203, area: "Bhawani Peth"},
-    {long: 73.9324013, lat: 18.49994, cases: 206, area: "Hadapsar Mundhwa"},
-    {long: 73.8556604, lat: 18.4890336, cases: 192, area: "Bibwewadi"},
-    {long: 73.8556317, lat: 18.4554342, cases: 173, area: "Dhankawadi - Sahakarnagar"},
-    {long: 73.8442432, lat: 18.4852537, cases: 360, area: "Singhagad Road"},
-    {long: 73.9083849, lat: 18.5016267, cases: 370, area: "Wanawadi - Ramtekdi"},
-    {long: 73.8566656, lat: 18.5236091, cases: 437, area: "Kasba - Visharambaghwada"},
-    {long: 73.8247899, lat: 18.5329442, cases: 346, area: "Shivaji Nagar - Ghole Road"},
-    {long: 73.9477, lat: 18.5258, cases:205, area: "Pune Rural" }
+    {long: 73.8859, lat: 18.5105, cases: 175, area: "Pune Cantonment"},
+    {long: 73.8735123, lat: 18.5360328, cases: 537, area: "Dhole Patil Road"},
+    {long: 73.9052891, lat: 18.5570334, cases: 968, area: "Nagar Road - Wadgoansheri"},
+    {long: 73.812654, lat: 18.5609177, cases: 331, area: "Aundh Baner"},
+    {long: 73.8072235, lat: 18.5012357, cases: 341, area: "Kothrud - Bavdhan"},
+    {long: 73.8215563, lat: 18.498383, cases: 1170, area: "Warje - Karve Nagar"},
+    {long: 73.8864692, lat: 18.5454903, cases: 995, area: "Yerwada - Kalas - Dhanori"},
+    {long: 73.8874883, lat: 18.471762, cases: 291, area: "Kondhwa - Yewalewadi"},
+    {long: 73.8678985, lat: 18.5087575, cases: 367, area: "Bhawani Peth"},
+    {long: 73.9324013, lat: 18.49994, cases: 608, area: "Hadapsar Mundhwa"},
+    {long: 73.8556604, lat: 18.4890336, cases: 943, area: "Bibwewadi"},
+    {long: 73.8556317, lat: 18.4554342, cases: 1490, area: "Dhankawadi - Sahakarnagar"},
+    {long: 73.8442432, lat: 18.4852537, cases: 910, area: "Singhagad Road"},
+    {long: 73.9083849, lat: 18.5016267, cases: 456, area: "Wanawadi - Ramtekdi"},
+    {long: 73.8566656, lat: 18.5236091, cases: 663, area: "Kasba - Visharambaghwada"},
+    {long: 73.8247899, lat: 18.5329442, cases: 863, area: "Shivaji Nagar - Ghole Road"},
+    {long: 73.9477, lat: 18.5258, cases:692, area: "Pune Rural" }
   ];
 
 
@@ -95,7 +95,7 @@ export class PunemapComponent implements OnInit {
   ngOnInit(): void {
 
      var map = d3.json('assets/pune.topojson');
-     var sqrtScale = d3.scaleSqrt().domain([0, 1900]).range([0, 30]);
+     var sqrtScale = d3.scaleSqrt().domain([0, 5500]).range([0, 30]);
 
      Promise.all([map]).then(data => {
 

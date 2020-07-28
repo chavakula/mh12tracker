@@ -15,9 +15,11 @@ export class TrackerService {
   metaApiUrl: string = appGlobals.SETTINGS.metaApiUrl+"?v="+this.epoch;
   newsApiUrl: string = appGlobals.SETTINGS.newsApiUrl+"?v="+this.epoch;
   summaryApiUrl: string = appGlobals.SETTINGS.summaryApiUrl+"?v="+this.epoch;
+  summaryPcmcApiUrl: string = appGlobals.SETTINGS.summaryPcmcApiUrl+"?v="+this.epoch;
   wardWiseApiUrl: string = appGlobals.SETTINGS.wardWiseApiUrl+"?v="+this.epoch;
   summaryTimeseriesApiUrl: string = appGlobals.SETTINGS.summaryTimeseriesApiUrl+"?v="+this.epoch;
   summaryDeltaGraphApiUrl: string = appGlobals.SETTINGS.summaryDeltaGraph+"?v="+this.epoch;
+  summaryDeltaGraphPcmcApiUrl: string = appGlobals.SETTINGS.summaryDeltaGraphPcmc+"?v="+this.epoch;
   zoneApi: string = appGlobals.SETTINGS.zoneApiUrl;
   nearByApiUrl: string = appGlobals.SETTINGS.nearByApiUrl;
   patientSummaryApiUrl: string = appGlobals.SETTINGS.patientSummary+"?v="+this.epoch;
@@ -77,6 +79,18 @@ export class TrackerService {
   }
 
   /**
+   * Get PCMC details
+  */
+
+ getPCMCSummaryDetails(): Observable<any>{
+  let API_URL = `${this.baseApiUrl}${this.summaryPcmcApiUrl}`;
+  return this.httpClient.get(API_URL)
+    .pipe(
+      catchError(this.error)
+    )
+}
+
+  /**
    * Get all cases ward wise
   */
 
@@ -106,6 +120,18 @@ export class TrackerService {
 
  getSummaryDeltaGraph(): Observable<any>{
   let API_URL = `${this.baseApiUrl}${this.summaryDeltaGraphApiUrl}`;
+  return this.httpClient.get(API_URL)
+    .pipe(
+      catchError(this.error)
+    )
+}
+
+  /**
+   * Get time series for delta graph
+  */
+
+ getSummaryDeltaGraphPcmc(): Observable<any>{
+  let API_URL = `${this.baseApiUrl}${this.summaryDeltaGraphPcmcApiUrl}`;
   return this.httpClient.get(API_URL)
     .pipe(
       catchError(this.error)

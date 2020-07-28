@@ -45,7 +45,10 @@ export class TrackerComponent implements OnInit {
   newsLoading: Boolean = true;
 
   summaryDetails: any = {};
+  summaryPcmcDetails: any = {};
   summaryLoading: Boolean = true;
+  summaryPcmcLoading: Boolean = true;
+  
 
   summaryPatients: any = {};
   summaryPatientsLoading: Boolean = true;
@@ -54,6 +57,7 @@ export class TrackerComponent implements OnInit {
   wardWiseLoading: Boolean = true;
 
   graphLoading: Boolean = true;
+  graphLoadingPcmc: Boolean = true;
 
   locationset = [];
   nearByAreas: string = "";
@@ -210,10 +214,43 @@ export class TrackerComponent implements OnInit {
        this.summaryLoading = false;
     });
 
+    // get PCMC details
+    this.dataservice.getPCMCSummaryDetails().subscribe(data=>{
+      this.summaryPcmcDetails = data;
+      this.summaryPcmcLoading = false;
+   });
+
     // get ward wise details
     this.dataservice.getWardWiseCases().subscribe(data=>{
       this.wardWiseCases = data;
       this.wardWiseLoading = false;
+    });
+
+    // get data for graph for pcmc
+    this.dataservice.getSummaryDeltaGraphPcmc().subscribe(data=>{
+
+      let cdata_pcmc = [];
+      let adata_pcmc = [];
+      let rdata_pcmc = [];
+      let ddata_pcmc = [];
+
+      data.forEach(row => {
+
+        // D3 sparkline
+        cdata_pcmc.push({date: new Date(row.CreatedAt), value: row.DeltaConfirmed});
+        adata_pcmc.push({date: new Date(row.CreatedAt), value: row.DeltaActive});
+        rdata_pcmc.push({date: new Date(row.CreatedAt), value: row.DeltaRecovered});
+        ddata_pcmc.push({date: new Date(row.CreatedAt), value: row.DeltaDeaths});
+
+    });
+
+        this.drawSparklines(80, 40, "path5", ".sparkline-wrapper-confirmed-pcmc",cdata_pcmc, "confirmpath");
+        this.drawSparklines(80, 40, "path6", ".sparkline-wrapper-active-pcmc",adata_pcmc, "activepath");
+        this.drawSparklines(80, 40, "path7", ".sparkline-wrapper-recover-pcmc",rdata_pcmc, "recoverpath");
+        this.drawSparklines(80, 40, "path8", ".sparkline-wrapper-death-pcmc",ddata_pcmc, "deathpath");
+
+        this.graphLoadingPcmc = false;
+
     });
 
     // get data for graph
